@@ -11,14 +11,11 @@ public class UserHomePageObject extends BasePage {
         this.driver = driver;
     }
 
-    public void clickToHearderAccountLink() {
-        waitForElementVisible(driver, UserHomePageUI.HEARDER_ACCOUNT_LINK);
-       clickToElement(driver, UserHomePageUI.HEARDER_ACCOUNT_LINK);
-    }
-
     public UserRegisterPageObject clickToHearderAccountRegisterLink() {
         waitForElementClickable(driver, UserHomePageUI.HEARDER_ACCOUNT_REGISTER_LINK);
         clickToElement(driver, UserHomePageUI.HEARDER_ACCOUNT_REGISTER_LINK);
         return PageGeneratorManager.getUserRegisterPage(driver);
     }
+
+
 }

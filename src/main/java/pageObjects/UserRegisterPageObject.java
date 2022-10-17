@@ -2,7 +2,6 @@ package pageObjects;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
-import pageUIs.UserHomePageUI;
 import pageUIs.UserRegisterPageUI;
 
 public class UserRegisterPageObject extends BasePage {
@@ -12,7 +11,7 @@ public class UserRegisterPageObject extends BasePage {
         this.driver = driver;
     }
 
-    public void sendkeyToTextboxByID(String textboxID, String textValue) {
+    public void sendkeyToTextboxByIDAtRegisterPage(String textboxID, String textValue) {
         waitForElementVisible(driver, UserRegisterPageUI.TEXTBOX_BY_ID, textboxID);
         sendKeyToElement(driver, UserRegisterPageUI.TEXTBOX_BY_ID, textValue, textboxID);
     }

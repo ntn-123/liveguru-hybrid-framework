@@ -7,8 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.PageGeneratorManager;
-import pageObjects.UserAccountInformationPageObject;
+import pageObjects.*;
+import pageUIs.UserHomePageUI;
 
 import java.util.Date;
 import java.util.List;
@@ -520,9 +520,28 @@ public class BasePage {
     private long longTimeout = GlobalConstants.LONG_TIMEOUT;
     private long shortTimeout = GlobalConstants.SHOTR_TIMEOUT;
 
+    public void clickToHearderAccountLink(WebDriver driver) {
+        waitForElementVisible(driver, BasePageUI.HEARDER_ACCOUNT_LINK);
+        clickToElement(driver, BasePageUI.HEARDER_ACCOUNT_LINK);
+    }
+    public UserHomePageObject clickToHearderAccountLogoutLink(WebDriver driver) {
+        waitForElementVisible(driver, BasePageUI.HEARDER_ACCOUNT_LOGOUT_LINK);
+        clickToElement(driver, BasePageUI.HEARDER_ACCOUNT_LOGOUT_LINK);
+        return PageGeneratorManager.getUserHomePage(driver);
+    }
+    public UserLoginPageObject clickToHearderAccountLoginLink(WebDriver driver) {
+        waitForElementVisible(driver, BasePageUI.HEARDER_ACCOUNT_LOGIN_LINK);
+        clickToElement(driver, BasePageUI.HEARDER_ACCOUNT_LOGIN_LINK);
+        return PageGeneratorManager.getUserLoginPage(driver);
+    }
     public UserAccountInformationPageObject clickToLeftSidebarLinkByText(WebDriver driver, String textValue) {
         waitForElementClickable(driver, BasePageUI.LEFT_SIDEBAR_LINK_BY_TEXT, textValue);
         clickToElement(driver, BasePageUI.LEFT_SIDEBAR_LINK_BY_TEXT, textValue);
         return PageGeneratorManager.getUserAccountInformationPage(driver);
+    }
+    public UserMobilePageObject clickToMobileMenu(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.MOBILE_MENU);
+        clickToElement(driver, BasePageUI.MOBILE_MENU);
+        return PageGeneratorManager.getUserMobilePage(driver);
     }
 }

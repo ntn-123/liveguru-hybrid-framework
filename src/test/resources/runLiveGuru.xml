@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Nopcommerce User">
+	
+	<listeners>
+        <listener class-name="commons.MethodListener" />
+        <listener class-name="reportConfig.ReportNGListener" />
+        <!-- 		<listener class-name="reportConfig.ExtentTestListenerV5" /> -->
+		<!-- 		<listener class-name="reportConfig.AllureTestListener" /> -->
+        <listener class-name="org.uncommons.reportng.HTMLReporter" />
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+    </listeners>
+
+            <parameter name="userUrl" value="http://live.techpanda.org/"/>
+            <parameter name="adminUrl" value="http://live.techpanda.org/index.php/backendlogin"/>
+
+            <test name="Run test on Chrome">
+                <parameter name="browser" value="CHROME"/>
+                <classes>
+                      <class name="liveguruUser.RegisterAndLogin"/>
+                </classes>
+              </test>
+
+        </suite>

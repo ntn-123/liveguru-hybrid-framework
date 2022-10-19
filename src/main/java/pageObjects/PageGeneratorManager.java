@@ -26,5 +26,19 @@ public class PageGeneratorManager {
     }
     public static UserCheckoutCartPageObject getUserCheckoutCartPage(WebDriver driver){
         return new UserCheckoutCartPageObject(driver);
+    }public static UserCompareProductsPageObject getUserCompareProductsPage(WebDriver driver){
+        return new UserCompareProductsPageObject(driver);
+    }
+    public static UserTVPageObject getUserTVPage(WebDriver driver){
+        return new UserTVPageObject(driver);
+    }
+    public static UserMyWishlistPageObject getUserMyWishlistPage(WebDriver driver){
+        return new UserMyWishlistPageObject(driver);
+    }
+    public static UserShareWishlistPageObject getUserShareWishlistPage(WebDriver driver){
+        return new UserShareWishlistPageObject(driver);
+    }
+    public static UserTVDetailPageObject getUserTVDetailPage(WebDriver driver){
+        return new UserTVDetailPageObject(driver);
     }
 }

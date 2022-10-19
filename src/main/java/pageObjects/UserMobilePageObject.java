@@ -2,6 +2,7 @@ package pageObjects;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
+import pageUIs.UserCheckoutCartPageUI;
 import pageUIs.UserMobilePageUI;
 
 public class UserMobilePageObject extends BasePage {
@@ -24,5 +25,22 @@ public class UserMobilePageObject extends BasePage {
         waitForElementVisible(driver, UserMobilePageUI.ADD_TO_CART_BUTTON_BY_MOBILE_NAME, mobileName);
         clickToElement(driver, UserMobilePageUI.ADD_TO_CART_BUTTON_BY_MOBILE_NAME, mobileName);
         return PageGeneratorManager.getUserCheckoutCartPage(driver);
+    }
+
+    public void clickToAddToCompareLinkByMobileNameAtMobileList(String mobileName) {
+        waitForElementVisible(driver, UserMobilePageUI.ADD_TO_COMPARE_LINK_BY_MOBILE_NAME, mobileName);
+        clickToElement(driver, UserMobilePageUI.ADD_TO_COMPARE_LINK_BY_MOBILE_NAME, mobileName);
+    }
+
+    public boolean isAddedToCompareSuccessMessageDisplayed(String message) {
+        waitForElementVisible(driver, UserMobilePageUI.ADDED_TO_COMPARE_SUCCESS_MESSAGE, message);
+        return isElementDisplayed(driver, UserMobilePageUI.ADDED_TO_COMPARE_SUCCESS_MESSAGE, message);
+    }
+
+    public UserCompareProductsPageObject clickToCompareButton() {
+        waitForElementVisible(driver, UserMobilePageUI.COMPARE_BUTTON);
+        clickToElement(driver, UserMobilePageUI.COMPARE_BUTTON);
+        switchToWindowByTitle(driver, "Products Comparison List - Magento Commerce");
+        return PageGeneratorManager.getUserCompareProductsPage(driver);
     }
 }

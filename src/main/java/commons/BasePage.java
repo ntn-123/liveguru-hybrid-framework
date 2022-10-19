@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.*;
-import pageUIs.UserHomePageUI;
 
 import java.util.Date;
 import java.util.List;
@@ -539,9 +538,31 @@ public class BasePage {
         clickToElement(driver, BasePageUI.LEFT_SIDEBAR_LINK_BY_TEXT, textValue);
         return PageGeneratorManager.getUserAccountInformationPage(driver);
     }
-    public UserMobilePageObject clickToMobileMenu(WebDriver driver) {
-        waitForElementClickable(driver, BasePageUI.MOBILE_MENU);
-        clickToElement(driver, BasePageUI.MOBILE_MENU);
+    public UserMobilePageObject clickToHearderMobileMenuLink(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.HEARDER_MOBILE_MENU_LINK);
+        clickToElement(driver, BasePageUI.HEARDER_MOBILE_MENU_LINK);
         return PageGeneratorManager.getUserMobilePage(driver);
     }
+
+    public UserTVPageObject clickToHearderTVMenuLink(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.HEARDER_TV_MENU_LINK);
+        clickToElement(driver, BasePageUI.HEARDER_TV_MENU_LINK);
+        return PageGeneratorManager.getUserTVPage(driver);
+    }
+
+    public String getWindowIdAtCurrentPage(WebDriver driver) {
+        return driver.getWindowHandle();
+    }
+
+    public boolean isWindowClosed(WebDriver driver, String windowId) {
+        boolean isClosed = true;
+        Set<String> allWindowIDs = driver.getWindowHandles();
+        for (String id : allWindowIDs){
+            if (id.equals(windowId)) {
+                isClosed = false;
+            }
+        }
+        return isClosed;
+    }
+
 }

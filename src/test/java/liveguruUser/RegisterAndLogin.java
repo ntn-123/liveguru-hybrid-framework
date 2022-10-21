@@ -1,13 +1,16 @@
 package liveguruUser;
 
 import commons.BaseTest;
+import commons.PageGeneratorManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.*;
+import pageObjectsUser.*;
+
+import java.util.Set;
 
 public class RegisterAndLogin extends BaseTest {
     @Parameters({"browser", "userUrl"})
@@ -16,11 +19,31 @@ public class RegisterAndLogin extends BaseTest {
         driver = getBrowserDriver(browserName, appUrl);
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
         homePageUrl = userHomePage.getPageUrl(driver);
-        fName = "Sa First";
-        lName = "Sa Last";
+
+        firstName = "Sa First";
+        lastName = "Sa Last";
         emailAddress = "sa" + getRandomNumber() + "@hotmail.net";
         emailShareWishlist = "sa" + getRandomNumber() + "@hotmail.net";
         password = "123456";
+
+        billFirstName = "Bill Sa First";
+        billLastName = "Bill Sa Last";
+        billAddress = "Bill Address";
+        billCity = "Bill City";
+        billStateProvince = "New York";
+        billZip = "123456";
+        billCountry = "United States";
+        billTelephone = "0987654321";
+
+        shipFirstName = "Ship Sa First";
+        shipLastName = "Ship Sa Last";
+        shipAddress = "Ship Address";
+        shipCity = "Ship City";
+        shipStateProvince = "New York";
+        shipZip = "123456";
+        shipCountry = "United States";
+        shipTelephone = "0987654321";
+
     }
 
     @Test
@@ -31,11 +54,11 @@ public class RegisterAndLogin extends BaseTest {
         log.info("Register - Step 02: Click to Register link");
         userRegisterPage = userHomePage.clickToHearderAccountRegisterLink();
 
-        log.info("Register - Step 03: Enter to First Name textbox with value = " + fName);
-        userRegisterPage.sendkeyToTextboxByIDAtRegisterPage("firstname", fName);
+        log.info("Register - Step 03: Enter to First Name textbox with value = " + firstName);
+        userRegisterPage.sendkeyToTextboxByIDAtRegisterPage("firstname", firstName);
 
-        log.info("Register - Step 04: Enter to Last Name textbox with value = " + lName);
-        userRegisterPage.sendkeyToTextboxByIDAtRegisterPage("lastname", lName);
+        log.info("Register - Step 04: Enter to Last Name textbox with value = " + lastName);
+        userRegisterPage.sendkeyToTextboxByIDAtRegisterPage("lastname", lastName);
 
         log.info("Register - Step 05: Enter to Email Address textbox with value = " + emailAddress);
         userRegisterPage.sendkeyToTextboxByIDAtRegisterPage("email_address", emailAddress);
@@ -56,8 +79,8 @@ public class RegisterAndLogin extends BaseTest {
         userAccountInformationPage = userMyDashboardPage.clickToLeftSidebarLinkByText(driver, "Account Information");
 
         log.info("Register - Step 11: Verify account info");
-        Assert.assertEquals(userAccountInformationPage.getAttributeValueAtTextboxByIDAtAccountInformationPage("value", "firstname"), fName);
-        Assert.assertEquals(userAccountInformationPage.getAttributeValueAtTextboxByIDAtAccountInformationPage("value", "lastname"), lName);
+        Assert.assertEquals(userAccountInformationPage.getAttributeValueAtTextboxByIDAtAccountInformationPage("value", "firstname"), firstName);
+        Assert.assertEquals(userAccountInformationPage.getAttributeValueAtTextboxByIDAtAccountInformationPage("value", "lastname"), lastName);
         Assert.assertEquals(userAccountInformationPage.getAttributeValueAtTextboxByIDAtAccountInformationPage("value", "email"), emailAddress);
 
         log.info("Register - Step 12: Click to Account link");
@@ -86,7 +109,7 @@ public class RegisterAndLogin extends BaseTest {
 
         log.info("Login - Step 06: Verify login success");
         Assert.assertEquals(userMyDashboardPage.getMyDashboardTitle(), "MY DASHBOARD");
-        Assert.assertEquals(userMyDashboardPage.getAccountNameText(), "Hello, " + fName + " " + lName + "!");
+        Assert.assertEquals(userMyDashboardPage.getAccountNameText(), "Hello, " + firstName + " " + lastName + "!");
     }
     @Test
     public void User_03_Cost_Of_Product(){
@@ -110,7 +133,7 @@ public class RegisterAndLogin extends BaseTest {
         Assert.assertEquals(costAtListPage, costAtDetailPage);
     }
 
-    @Test
+    //@Test
     public void User_04_Coupon(){
         log.info("Coupon - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, homePageUrl);
@@ -126,7 +149,7 @@ public class RegisterAndLogin extends BaseTest {
         Assert.assertEquals(userCheckoutCartPage.getAddedToCartSuccessMessage(), "Sony Xperia was added to your shopping cart.");
 
         log.info("Coupon - Step 05: Enter to coupon code to Discount codes text box");
-        userCheckoutCartPage.sendkeyToDiscountCodesTextbox("GURU50");
+        userCheckoutCartPage.sendkeyToTextboxByID("coupon_code", "GURU50");
 
         log.info("Coupon - Step 06: Click to Apply button");
         userCheckoutCartPage.clickToApplyButton();
@@ -239,7 +262,7 @@ public class RegisterAndLogin extends BaseTest {
         userMyWishlistPage = userTVPage.clickToAddToWishlistLinkByTVNameAtTVList("LG LCD");
 
         log.info("Wishlist - Step 04: Verify LG LCD added to wishlist success displayed");
-        Assert.assertTrue(userMyWishlistPage.isAddedToWishlistSuccessMessageDisplayed("LG LCD has been added to your wishlist. Click here to continue shopping."));
+        Assert.assertEquals(userMyWishlistPage.getAddedToWishlistSuccessMessage("innerText"),"LG LCD has been added to your wishlist. Click here to continue shopping.");
 
         log.info("Wishlist - Step 05: Click to Share wishlist button");
         userShareWishlistPage = userMyWishlistPage.clickToShareWishlistButtonAtMyWishlistPage();
@@ -270,13 +293,149 @@ public class RegisterAndLogin extends BaseTest {
         log.info("Review - Step 02: Click to TV menu");
         userTVPage = userHomePage.clickToHearderTVMenuLink(driver);
 
-        log.info("Review - Step 03: Click to Sony Xperia detail");
+        log.info("Review - Step 03: Click to Sony Xperia name title");
         userTVDetailPage = userTVPage.clickToTVNameTitle("Samsung LCD");
+
+        log.info("Review - Step 04: Click to Add your review link");
+        userTVDetailPage.clickToAddYourReviewLink();
+
+        log.info("Review - Step 05: Click to Submit review button");
+        userTVDetailPage.clickToSubmitReviewButton();
+
+        log.info("Review - Step 06: Verify required error message at Rate field displayed");
+        Assert.assertEquals(userTVDetailPage.getErrorMessageReviewAtInputFieldByID("advice-validate-rating-validate_rating"), "Please select one of each of the ratings above");
+
+        log.info("Review - Step 07: Verify required error message at Review field displayed");
+        Assert.assertEquals(userTVDetailPage.getErrorMessageReviewAtInputFieldByID("advice-required-entry-review_field"), "THIS IS A REQUIRED FIELD.");
+
+        log.info("Review - Step 08: Verify required error message at Summary field displayed");
+        Assert.assertEquals(userTVDetailPage.getErrorMessageReviewAtInputFieldByID("advice-required-entry-summary_field"), "THIS IS A REQUIRED FIELD.");
+
+        log.info("Review - Step 09: Check to Rate Field");
+        userTVDetailPage.checkToRateRadioButtonByID("Quality 1_3");
+
+        log.info("Review - Step 10: Enter to Review field");
+        userTVDetailPage.sendkeyToReviewFieldTextarea("Review");
+
+        log.info("Review - Step 11: Enter to Review field");
+        userTVDetailPage.sendkeyToSummaryFieldTextbox("Summary");
+
+        log.info("Review - Step 12: Enter to Review field");
+        userTVDetailPage.sendkeyToNicknameFieldTextbox("Nickname");
+
+        log.info("Review - Step 13: Click to Submit review button");
+        userTVDetailPage.clickToSubmitReviewButton();
+
+        log.info("Review - Step 14: Verify reviewed success message displayed");
+        Assert.assertEquals(userTVDetailPage.getReviewedSuccessMessage(), "Your review has been accepted for moderation.");
+    }
+
+    @Test
+    public void User_09_Purchase_Product() {
+        log.info("Purchase - Step 01: Open LiveGuru99 site");
+        userHomePage.openPageUrl(driver, homePageUrl);
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+
+        log.info("Purchase - Step 02: Click to Go to wishlist link");
+        userMyWishlistPage = userHomePage.clickToGoTOWishlistLink(driver);
+
+        log.info("Purchase - Step 03: Click to Add to cart button");
+        userCheckoutCartPage = userMyWishlistPage.clickToAddToCartButton();
+
+        log.info("Purchase - Step 04: Select Country from dropdown Country");
+        userCheckoutCartPage.selectItemInDropdownByID("country", "United States");
+
+        log.info("Purchase - Step 05: Select State/ Province from dropdown State/ Province");
+        userCheckoutCartPage.selectItemInDropdownByID("region_id", "New York");
+
+        log.info("Purchase - Step 06: Enter zipcode to Zip textbox");
+        userCheckoutCartPage.sendkeyToTextboxByID("postcode", "123456");
+
+        log.info("Purchase - Step 07: Click to Estimate button");
+        userCheckoutCartPage.clickToEstimateButton();
+        userCheckoutCartPage.sleepInSecond(3);
+
+        log.info("Purchase - Step 08: Verify Flat rate cost displayed");
+        Assert.assertEquals(userCheckoutCartPage.getFlatRatePriceText(), "$5.00");
+
+        log.info("Purchase - Step 09: Select Flat rate cost");
+        userCheckoutCartPage.checkToFlatRateRadioButton();
+        userCheckoutCartPage.sleepInSecond(2);
+
+        log.info("Purchase - Step 10: Click to Update total button");
+        userCheckoutCartPage.clickToUpdateTotalButton();
+        userCheckoutCartPage.sleepInSecond(3);
+
+        log.info("Purchase - Step 11: Verify Flat rate cost is added to grand total");
+        Assert.assertEquals(userCheckoutCartPage.getGrandTotalPrice(), "$620.00");
+
+        log.info("Purchase - Step 12: Click to Proceed to checkout button");
+        userCheckoutOnepagePage = userCheckoutCartPage.clickToProceedToCheckoutButton();
+
+        log.info("Purchase - Step 13: Enter to Billing Information and click Continue button");
+        userCheckoutOnepagePage.sendkeyToTextboxByID("billing:firstname", billFirstName);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("billing:lastname", billLastName);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("billing:street1", billAddress);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("billing:city", billCity);
+        userCheckoutOnepagePage.selectItemInDropdownByID("billing:country_id", billCountry);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("billing:postcode", billZip);
+        userCheckoutOnepagePage.selectItemInDropdownByID("billing:region_id", billStateProvince);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("billing:telephone", billTelephone);
+        userCheckoutOnepagePage.checkToRadiobuttonByID("billing:use_for_shipping_no");
+        userCheckoutOnepagePage.clickToButtonByID("billing-buttons-container");
+
+        log.info("Purchase - Step 14: Enter to Shipping Information and click Continue button");
+        userCheckoutOnepagePage.sendkeyToTextboxByID("shipping:firstname", shipFirstName);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("shipping:lastname", shipLastName);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("shipping:street1", shipAddress);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("shipping:city", shipCity);
+        userCheckoutOnepagePage.selectItemInDropdownByID("shipping:country_id", shipCountry);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("shipping:postcode", shipZip);
+        userCheckoutOnepagePage.selectItemInDropdownByID("shipping:region_id", shipStateProvince);
+        userCheckoutOnepagePage.sendkeyToTextboxByID("shipping:telephone", shipTelephone);
+        userCheckoutOnepagePage.clickToButtonByID("shipping-buttons-container");
+
+        log.info("Purchase - Step 15: Click to Continue button at Shipping Method");
+        userCheckoutOnepagePage.clickToButtonByID("shipping-method-buttons-container");
+
+        log.info("Purchase - Step 16: Check to Check/ Money order radio button and click to Continue button at Payment Information");
+        userCheckoutOnepagePage.checkToRadiobuttonByID("p_method_checkmo");
+        userCheckoutOnepagePage.clickToButtonByID("payment-buttons-container");
+
+        log.info("Purchase - Step 17: Click to Place order button at Order Review");
+        userCheckoutOnepagePage.clickToButtonByID("review-buttons-container");
+        userCheckoutOnepagePage.sleepInSecond(3);
+
+        log.info("Purchase - Step 18: Verify order success message display");
+        Assert.assertEquals(userCheckoutOnepagePage.getOrderSuccessMessage(), "YOUR ORDER HAS BEEN RECEIVED.");
+
+        log.info("Purchase - Step 19: Verify order id display");
+        Assert.assertTrue(userCheckoutOnepagePage.isOrderIdDisplayed());
+    }
+
+    //@Test
+    public void User_10_Advanced_Search() {
+        log.info("Advanced_Search - Step 01: Open LiveGuru99 site");
+        userHomePage.openPageUrl(driver, homePageUrl);
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+
+        log.info("Advanced_Search - Step 02: Click to footer Advanced search link");
+        userCatalogAdvancedSearchPage = userHomePage.clickToFooterAdcancedSearchMenuLink(driver, "Advanced Search");
+
+        log.info("Advanced_Search - Step 03: Enter to Price text box with range 0 - 150");
+        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price", "0");
+        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price_to", "150");
+
+        log.info("Advanced_Search - Step 04: Click to Search button");
+        userAdvanceSearchResultPage = userCatalogAdvancedSearchPage.clickToSearchButton();
+
+        log.info("Advanced_Search - Step 05: Note Product name and Price in the result");
+        Set<String> productInfoWithRangePrice0And150 = userAdvanceSearchResultPage.getProductNameAndPriceAtSearchResult();
     }
 
     @AfterClass(alwaysRun = true)
     public void afterClass(){
-        closeBrowserAndDriver();
+        //closeBrowserAndDriver();
     }
     private WebDriver driver;
     private UserHomePageObject userHomePage;
@@ -292,7 +451,12 @@ public class RegisterAndLogin extends BaseTest {
     private UserMyWishlistPageObject userMyWishlistPage;
     private UserShareWishlistPageObject userShareWishlistPage;
     private UserTVDetailPageObject userTVDetailPage;
-    private String fName, lName, emailAddress, password;
+    private UserCheckoutOnepagePageObject userCheckoutOnepagePage;
+    private UserCatalogAdvancedSearchPageObject userCatalogAdvancedSearchPage;
+    private UserAdvanceSearchResultPageObject userAdvanceSearchResultPage;
+    private String firstName, lastName, emailAddress, password;
+    private String billFirstName, billLastName, billAddress, billCity, billStateProvince, billZip, billCountry, billTelephone;
+    private String shipFirstName, shipLastName, shipAddress, shipCity, shipStateProvince, shipZip, shipCountry, shipTelephone;
     private String emailShareWishlist;
     private String homePageUrl;
 }

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.*;
+import pageObjectsUser.*;
 
 import java.util.Date;
 import java.util.List;
@@ -565,4 +565,15 @@ public class BasePage {
         return isClosed;
     }
 
+    public UserMyWishlistPageObject clickToGoTOWishlistLink(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.GO_TO_WISHLIST_LINK);
+        clickToElement(driver, BasePageUI.GO_TO_WISHLIST_LINK);
+        return PageGeneratorManager.getUserMyWishlistPage(driver);
+    }
+
+    public UserCatalogAdvancedSearchPageObject clickToFooterAdcancedSearchMenuLink(WebDriver driver, String menuText) {
+        waitForElementClickable(driver, BasePageUI.FOOTER_MENU_LINK_BY_TEXT, menuText);
+        clickToElement(driver, BasePageUI.FOOTER_MENU_LINK_BY_TEXT, menuText);
+        return PageGeneratorManager.getUserCatalogAdvancedSearchPage(driver);
+    }
 }

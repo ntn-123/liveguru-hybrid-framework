@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjectsAdmin.AdminLoginPageObject;
 import pageObjectsUser.*;
 
 import java.util.Date;
@@ -533,10 +534,16 @@ public class BasePage {
         clickToElement(driver, BasePageUI.HEARDER_ACCOUNT_LOGIN_LINK);
         return PageGeneratorManager.getUserLoginPage(driver);
     }
-    public UserAccountInformationPageObject clickToLeftSidebarLinkByText(WebDriver driver, String textValue) {
-        waitForElementClickable(driver, BasePageUI.LEFT_SIDEBAR_LINK_BY_TEXT, textValue);
-        clickToElement(driver, BasePageUI.LEFT_SIDEBAR_LINK_BY_TEXT, textValue);
-        return PageGeneratorManager.getUserAccountInformationPage(driver);
+    public BasePage clickToLeftSidebarLinkByText(WebDriver driver, String sideBarLinkText) {
+        waitForElementClickable(driver, BasePageUI.LEFT_SIDEBAR_LINK_BY_TEXT, sideBarLinkText);
+        clickToElement(driver, BasePageUI.LEFT_SIDEBAR_LINK_BY_TEXT, sideBarLinkText);
+        switch (sideBarLinkText){
+            case "Account Information":
+                return PageGeneratorManager.getUserAccountInformationPage(driver);
+
+            default:
+                throw new RuntimeException("Invalid page name at My Account area");
+        }
     }
     public UserMobilePageObject clickToHearderMobileMenuLink(WebDriver driver) {
         waitForElementClickable(driver, BasePageUI.HEARDER_MOBILE_MENU_LINK);
@@ -571,9 +578,22 @@ public class BasePage {
         return PageGeneratorManager.getUserMyWishlistPage(driver);
     }
 
-    public UserCatalogAdvancedSearchPageObject clickToFooterAdcancedSearchMenuLink(WebDriver driver, String menuText) {
+    public BasePage clickToFooterMenuLinkByText(WebDriver driver, String menuText) {
         waitForElementClickable(driver, BasePageUI.FOOTER_MENU_LINK_BY_TEXT, menuText);
         clickToElement(driver, BasePageUI.FOOTER_MENU_LINK_BY_TEXT, menuText);
-        return PageGeneratorManager.getUserCatalogAdvancedSearchPage(driver);
+        switch (menuText){
+            case "Account Information":
+                return PageGeneratorManager.getUserCatalogAdvancedSearchPage(driver);
+
+            default:
+                throw new RuntimeException("Invalid page name at footer menu area");
+        }
+
+    }
+
+    public AdminLoginPageObject clickToLogoutLink(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.ADMIN_LOGOUT_LINK);
+        clickToElement(driver, BasePageUI.ADMIN_LOGOUT_LINK);
+        return PageGeneratorManager.getAdminLoginPage(driver);
     }
 }

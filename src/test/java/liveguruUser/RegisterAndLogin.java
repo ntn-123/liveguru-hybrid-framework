@@ -73,10 +73,10 @@ public class RegisterAndLogin extends BaseTest {
         userMyDashboardPage = userRegisterPage.clickToRegisterButton();
 
         log.info("Register - Step 09: Verify register success");
-        Assert.assertEquals(userMyDashboardPage.getRegisterSuccessMessage(), "Thank you for registering with Main Website Store.");
+        Assert.assertEquals(userMyDashboardPage.getSuccessMessage(), "Thank you for registering with Main Website Store.");
 
         log.info("Register - Step 10: Click to Left Sidebar Account Information link");
-        userAccountInformationPage = userMyDashboardPage.clickToLeftSidebarLinkByText(driver, "Account Information");
+        userAccountInformationPage = (UserAccountInformationPageObject) userMyDashboardPage.clickToLeftSidebarLinkByText(driver, "Account Information");
 
         log.info("Register - Step 11: Verify account info");
         Assert.assertEquals(userAccountInformationPage.getAttributeValueAtTextboxByIDAtAccountInformationPage("value", "firstname"), firstName);
@@ -98,16 +98,10 @@ public class RegisterAndLogin extends BaseTest {
         log.info("Login - Step 02: Click to herder Login link");
         userLoginPage = userHomePage.clickToHearderAccountLoginLink(driver);
 
-        log.info("Login - Step 03: Enter to Email Address textbox with value = " + emailAddress);
-        userLoginPage.sendkeyToTextboxByIDAtLoginPage("email", emailAddress);
+        log.info("Login - Step 03: User login to system with Email Address = " + emailAddress + "and Password = " + password);
+        userMyDashboardPage = userLoginPage.userLoginToSystem(emailAddress, password);
 
-        log.info("Login - Step 04: Enter to Password textbox with value = " + emailAddress);
-        userLoginPage.sendkeyToTextboxByIDAtLoginPage("pass", password);
-
-        log.info("Login - Step 05: Click to Login button");
-        userMyDashboardPage = userLoginPage.clickToLoginButton();
-
-        log.info("Login - Step 06: Verify login success");
+        log.info("Login - Step 04: Verify login success");
         Assert.assertEquals(userMyDashboardPage.getMyDashboardTitle(), "MY DASHBOARD");
         Assert.assertEquals(userMyDashboardPage.getAccountNameText(), "Hello, " + firstName + " " + lastName + "!");
     }
@@ -227,7 +221,7 @@ public class RegisterAndLogin extends BaseTest {
         String windowIdAtCompareProducts = userMobilePage.getWindowIdAtCurrentPage(driver);
 
         log.info("Compare - Step 10: Verify Compare product title displayed in new wimdow");
-        Assert.assertTrue(userCompareProductsPage.isCompareProductsTitleDisplayed());
+        Assert.assertTrue(userCompareProductsPage.isCompareProductsHeadingDisplayed());
 
         log.info("Compare - Step 11: Verify selected Sony Xperia dislayed");
         Assert.assertTrue(userCompareProductsPage.isMobileNameDisplayed("Sony Xperia"));
@@ -247,6 +241,7 @@ public class RegisterAndLogin extends BaseTest {
 
         log.info("Compare - Step 14: Verify Compare products window closed");
         Assert.assertTrue(userMobilePage.isWindowClosed(driver, windowIdAtCompareProducts));
+        
     }
 
     @Test
@@ -420,7 +415,7 @@ public class RegisterAndLogin extends BaseTest {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         log.info("Advanced_Search - Step 02: Click to footer Advanced search link");
-        userCatalogAdvancedSearchPage = userHomePage.clickToFooterAdcancedSearchMenuLink(driver, "Advanced Search");
+        userCatalogAdvancedSearchPage = (UserCatalogAdvancedSearchPageObject) userHomePage.clickToFooterMenuLinkByText(driver, "Advanced Search");
 
         log.info("Advanced_Search - Step 03: Enter to Price text box with range 0 - 150");
         userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price", "0");

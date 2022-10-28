@@ -11,9 +11,9 @@ public class UserMyDashboardPageObject extends BasePage {
         this.driver = driver;
     }
 
-    public String getRegisterSuccessMessage() {
-        waitForElementVisible(driver, UserMyDashboardPageUI.REGISTER_SUCCESS_MESSAGE);
-        return getElementText(driver, UserMyDashboardPageUI.REGISTER_SUCCESS_MESSAGE);
+    public String getSuccessMessage() {
+        waitForElementVisible(driver, UserMyDashboardPageUI.SUCCESS_MESSAGE);
+        return getElementText(driver, UserMyDashboardPageUI.SUCCESS_MESSAGE);
     }
 
     public String getMyDashboardTitle() {

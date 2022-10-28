@@ -12,9 +12,9 @@ public class UserCompareProductsPageObject extends BasePage {
         this.driver = driver;
     }
 
-    public boolean isCompareProductsTitleDisplayed() {
-        waitForElementVisible(driver, UserCompareProductsPageUI.COMPARE_PRODUCTS_TITLE);
-        return isElementDisplayed(driver, UserCompareProductsPageUI.COMPARE_PRODUCTS_TITLE);
+    public boolean isCompareProductsHeadingDisplayed() {
+        waitForElementVisible(driver, UserCompareProductsPageUI.COMPARE_PRODUCTS_HEADING_TEXT);
+        return isElementDisplayed(driver, UserCompareProductsPageUI.COMPARE_PRODUCTS_HEADING_TEXT);
     }
 
     public boolean isMobileNameDisplayed(String mobileName) {

@@ -1,6 +1,8 @@
 package commons;
 
 import org.openqa.selenium.WebDriver;
+import pageObjectsAdmin.AdminLoginPageObject;
+import pageObjectsAdmin.AdminManageCustomerPageObject;
 import pageObjectsUser.*;
 
 public class PageGeneratorManager {
@@ -50,5 +52,12 @@ public class PageGeneratorManager {
     }
     public static UserAdvanceSearchResultPageObject getUserAdvanceSearchResultPage(WebDriver driver){
         return new UserAdvanceSearchResultPageObject(driver);
+    }
+    public static AdminLoginPageObject getAdminLoginPage(WebDriver driver){
+        return new AdminLoginPageObject(driver);
+    }
+
+    public static AdminManageCustomerPageObject getAdminManageCustomerPage(WebDriver driver){
+        return new AdminManageCustomerPageObject(driver);
     }
 }

@@ -12,14 +12,25 @@ public class UserLoginPageObject extends BasePage {
         this.driver = driver;
     }
 
-    public void sendkeyToTextboxByIDAtLoginPage(String attributeId, String textValue) {
-        waitForElementVisible(driver, UserLoginPageUI.TEXTBOX_BY_ID_AT_LOGIN_PAGE, attributeId);
-        sendKeyToElement(driver, UserLoginPageUI.TEXTBOX_BY_ID_AT_LOGIN_PAGE, textValue, attributeId);
+    public void sendkeyToEmailAddressTextbox(String emailAddress) {
+        waitForElementVisible(driver, UserLoginPageUI.EMAIL_ADDRESS_TEXTBOX);
+        sendKeyToElement(driver, UserLoginPageUI.EMAIL_ADDRESS_TEXTBOX, emailAddress);
+    }
+
+    public void sendkeyToPasswordTextbox(String password) {
+        waitForElementVisible(driver, UserLoginPageUI.PASSWORD_TEXTBOX);
+        sendKeyToElement(driver, UserLoginPageUI.PASSWORD_TEXTBOX, password);
     }
 
     public UserMyDashboardPageObject clickToLoginButton() {
         waitForElementVisible(driver, UserLoginPageUI.LOGIN_BUTTON);
         clickToElement(driver, UserLoginPageUI.LOGIN_BUTTON);
         return PageGeneratorManager.getUserMyDashboardPage(driver);
+    }
+
+    public UserMyDashboardPageObject userLoginToSystem(String emailAddress, String password){
+        sendkeyToEmailAddressTextbox(emailAddress);
+        sendkeyToPasswordTextbox(password);
+        return clickToLoginButton();
     }
 }

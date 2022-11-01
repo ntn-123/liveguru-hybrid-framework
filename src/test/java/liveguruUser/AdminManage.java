@@ -8,11 +8,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjectsAdmin.AdminLoginPageObject;
-import pageObjectsAdmin.AdminManageCustomerPageObject;
+import pageObjectsAdmin.*;
 import pageObjectsUser.*;
 
-public class AdminManageAccount extends BaseTest {
+public class AdminManage extends BaseTest {
     @Parameters({"browser", "userUrl", "adminUrl"})
     @BeforeClass
     public void beforeClass(String browserName, String userUrl, String adminUrl){
@@ -35,8 +34,8 @@ public class AdminManageAccount extends BaseTest {
         passwordUpdate = "1234567";
     }
 
-    @Test
-    public void ManagerAccount_01_Create_Account(){
+    //@Test
+    public void Admin_Manage_01_Create_Account(){
         log.info("Create_Account - Step 01: Open LiveGuru99 user site");
         userHomePage.openPageUrl(driver, userUrl);
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
@@ -106,11 +105,11 @@ public class AdminManageAccount extends BaseTest {
         Assert.assertEquals(adminManageCustomerPage.getRowValueByColumnName("Email"), emailAddress);
 
         log.info("Create_Account - Step 22: Click to Log Out link");
-        adminLoginPage = adminManageCustomerPage.clickToLogoutLink(driver);
+        adminLoginPage = adminManageCustomerPage.clickToLogoutLinkAtAdminPage(driver);
     }
 
     //@Test
-    public void ManagerAccount_02_Update_Account(){
+    public void Admin_Manage_02_Update_Account(){
         log.info("User_Update - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, userUrl);
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
@@ -202,11 +201,11 @@ public class AdminManageAccount extends BaseTest {
         Assert.assertEquals(adminManageCustomerPage.getRowValueByColumnName("Email"), emailAddressUpdate);
 
         log.info("User_Update - Step 28: Click to Log Out link");
-        adminLoginPage = adminManageCustomerPage.clickToLogoutLink(driver);
+        adminLoginPage = adminManageCustomerPage.clickToLogoutLinkAtAdminPage(driver);
     }
 
-    @Test
-    public void ManagerAccount_02_Delete_Account(){
+    //@Test
+    public void Admin_Manage_03_Delete_Account(){
         log.info("Delete_Account - Step 01: Open LiveGuru99 admin site");
         userHomePage.openPageUrl(driver, adminUrl);
         adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
@@ -240,7 +239,145 @@ public class AdminManageAccount extends BaseTest {
         Assert.assertEquals(adminManageCustomerPage.getNoRecordsFoundMessage(), "No records found.");
 
         log.info("Delete_Account - Step 11: Click to Log Out link");
-        adminLoginPage = adminManageCustomerPage.clickToLogoutLink(driver);
+        adminLoginPage = adminManageCustomerPage.clickToLogoutLinkAtAdminPage(driver);
+
+    }
+
+    //@Test
+    public void Admin_Manage_04_Printed_Invoice() {
+        log.info("Printed_Invoice - Step 01: Open LiveGuru99 admin site");
+        userHomePage.openPageUrl(driver, adminUrl);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+
+        log.info("Printed_Invoice - Step 02: Login admin system");
+        adminManageCustomerPage = adminLoginPage.adminLoginToSystem(adminUserName, adminPassword);
+
+        log.info("Printed_Invoice - Step 03: Close message popup");
+        adminManageCustomerPage.clickToCloseButtonAtMessagePopup();
+
+        log.info("Printed_Invoice - Step 04: Hover to header Sales menu link");
+        adminManageCustomerPage.hoverMouseToHeaderLinkByTextAtAdminPage(driver, "Sales");
+
+        log.info("Printed_Invoice - Step 05: Click to header Orders menu link");
+        adminOrdersPage = (AdminOrdersPageObject) adminManageCustomerPage.clickToHeaderLinkByTextAtAdminPage(driver, "Orders");
+
+        log.info("Printed_Invoice - Step 06: Search orders by status = Canceled");
+        adminOrdersPage.selectItemInStatusDropdown("Canceled");
+        adminOrdersPage.clickToButtonByTitle("Search");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Printed_Invoice - Step 07: Check to checkbox at first row order");
+        adminOrdersPage.checkToCheckboxByRowNumber("1");
+
+        log.info("Printed_Invoice - Step 08: Select item Print invoices at Actions dropdown");
+        adminOrdersPage.selectItemInActionsDropdown("Print Invoices");
+
+        log.info("Printed_Invoice - Step 09: Click to Submit button");
+        adminOrdersPage.clickToButtonByTitle("Submit");
+
+        log.info("Printed_Invoice - Step 10: Verify error message print displayed");
+        Assert.assertEquals(adminOrdersPage.getErrorMessage(), "There are no printable documents related to selected orders.");
+
+        log.info("Printed_Invoice - Step 11: Search orders by status = Complete");
+        adminOrdersPage.selectItemInStatusDropdown("Complete");
+        adminOrdersPage.clickToButtonByTitle("Search");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Printed_Invoice - Step 07: Check to checkbox at first row order");
+        adminOrdersPage.checkToCheckboxByRowNumber("1");
+
+        log.info("Printed_Invoice - Step 08: Select item Print invoices at Actions dropdown");
+        adminOrdersPage.selectItemInActionsDropdown("Print Invoices");
+
+        log.info("Printed_Invoice - Step 09: Click to Submit button");
+        adminOrdersPage.clickToButtonByTitle("Submit");
+        adminOrdersPage.sleepInSecond(10);
+
+        log.info("Printed_Invoice - Step 10: Verify invoice downloaded");
+        Assert.assertTrue(adminOrdersPage.isFileDownloaded("C:\\Users\\admin\\Downloads", "invoice2022-10-31"));
+        adminOrdersPage.sleepInSecond(5);
+    }
+
+    @Test
+    public void Admin_Manage_05_Product_Review() {
+        log.info("Product_Review - Step 01: Open LiveGuru99 user site");
+        userHomePage.openPageUrl(driver, userUrl);
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+
+        log.info("Product_Review - Step 02: Open review product");
+        userHomePage.openPageUrl(driver, "http://live.techpanda.org/index.php/review/product/list/id/1/");
+        userProductDetailPage = PageGeneratorManager.getUserProductDetailPage(driver);
+
+        log.info("Product_Review - Step 03: Check to Rate Field");
+        userProductDetailPage.checkToRateRadioButtonByID("Quality 1_3");
+
+        log.info("Product_Review - Step 04: Enter to Review field");
+        userProductDetailPage.sendkeyToReviewFieldTextarea("Review");
+
+        log.info("Product_Review - Step 05: Enter to Review field");
+        userProductDetailPage.sendkeyToSummaryFieldTextbox("Summary");
+
+        log.info("Product_Review - Step 06: Enter to Review field");
+        userProductDetailPage.sendkeyToNicknameFieldTextbox("Nickname");
+
+        log.info("Product_Review - Step 07: Click to Submit review button");
+        userProductDetailPage.clickToSubmitReviewButton();
+
+        log.info("Product_Review - Step 08: Verify reviewed success message displayed");
+        Assert.assertEquals(userProductDetailPage.getReviewedSuccessMessage(), "Your review has been accepted for moderation.");
+
+        log.info("Product_Review - Step 09: Open LiveGuru99 admin site");
+        userHomePage.openPageUrl(driver, adminUrl);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+
+        log.info("Product_Review - Step 10: Login admin system");
+        adminManageCustomerPage = adminLoginPage.adminLoginToSystem(adminUserName, adminPassword);
+
+        log.info("Product_Review - Step 11: Close message popup");
+        adminManageCustomerPage.clickToCloseButtonAtMessagePopup();
+
+        log.info("Product_Review - Step 12: Hover to header Catalog menu link");
+        adminManageCustomerPage.hoverMouseToHeaderLinkByTextAtAdminPage(driver, "Catalog");
+
+        log.info("Product_Review - Step 13: Hover to header Reviews and Ratings sub-menu link");
+        adminManageCustomerPage.hoverMouseToHeaderLinkByTextAtAdminPage(driver, "Reviews and Ratings");
+
+        log.info("Product_Review - Step 14: Hover to header Customer Reviews sub-menu link");
+        adminManageCustomerPage.hoverMouseToHeaderLinkByTextAtAdminPage(driver, "Customer Reviews");
+
+        log.info("Product_Review - Step 15: Click to header Pending Reviews sub-menu link");
+        adminCatalogProductReviewPage = (AdminCatalogProductReviewPageObject) adminManageCustomerPage.clickToHeaderLinkByTextAtAdminPage(driver, "Pending Reviews");
+
+        log.info("Product_Review - Step 16: Sort table by Id");
+        adminCatalogProductReviewPage.sortTableByClickToHeaderTitle("ID");
+        adminCatalogProductReviewPage.sleepInSecond(2);
+
+        log.info("Product_Review - Step 17: Click Edit link at first row");
+        adminCatalogProductEditReviewPage = adminCatalogProductReviewPage.clickToEditLinkAtRowNumber("1");
+
+        log.info("Product_Review - Step 18: Select item Approved at Status dropdown");
+        adminCatalogProductEditReviewPage.selectItemAtStatusDropdown("Approved");
+
+        log.info("Product_Review - Step 19: Click to Save Review button");
+        adminCatalogProductReviewPage = adminCatalogProductEditReviewPage.clickToButtonByTitle("Save Review");
+
+        log.info("Product_Review - Step 20: Verify The review has been saved message displayed");
+        Assert.assertEquals(adminCatalogProductReviewPage.getSuccessMessage(), "The review has been saved.");
+
+        log.info("Product_Review - Step 21: Open LiveGuru99 user site");
+        userHomePage.openPageUrl(driver, userUrl);
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+
+        log.info("Product_Review - Step 22: Click to Mobile menu");
+        userProductPage = userHomePage.clickToHearderProductMenuLinkByProductName(driver, "Mobile");
+
+        log.info("Product_Review - Step 23: Click to Sony Xperia name title");
+        userProductDetailPage = userProductPage.clickToProductNameTitle("Sony Xperia");
+
+        log.info("Product_Review - Step 24: Click to Review tab at bottom of page");
+        userProductDetailPage.clickToBottomTabByText("Reviews");
+
+
     }
 
     @AfterClass(alwaysRun = true)
@@ -256,6 +393,11 @@ public class AdminManageAccount extends BaseTest {
     private UserLoginPageObject userLoginPage;
     private AdminLoginPageObject adminLoginPage;
     private AdminManageCustomerPageObject adminManageCustomerPage;
+    private AdminOrdersPageObject adminOrdersPage;
+    private UserProductDetailPageObject userProductDetailPage;
+    private AdminCatalogProductReviewPageObject adminCatalogProductReviewPage;
+    private AdminCatalogProductEditReviewPageObject adminCatalogProductEditReviewPage;
+    private UserProductPageObject userProductPage;
     private String firstName, lastName, emailAddress, password;
     private String adminUserName, adminPassword;
     private String firstNameUpdate, lastNameUpdate, emailAddressUpdate, passwordUpdate;

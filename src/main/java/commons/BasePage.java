@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjectsAdmin.AdminLoginPageObject;
 import pageObjectsUser.*;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -356,6 +357,11 @@ public class BasePage {
         action.moveToElement(getWebElement(driver, locatorType)).perform();
     }
 
+    public void hoverMouseToElement(WebDriver driver, String locatorType, String... dynamicValues) {
+        Actions action = new Actions(driver);
+        action.moveToElement(getWebElement(driver, getDynamicXpath(locatorType, dynamicValues))).perform();
+    }
+
     public void pressKeyToElement(WebDriver driver, String locatorType, Keys key) {
         Actions action = new Actions(driver);
         action.sendKeys(getWebElement(driver, locatorType), key).perform();
@@ -545,16 +551,10 @@ public class BasePage {
                 throw new RuntimeException("Invalid page name at My Account area");
         }
     }
-    public UserMobilePageObject clickToHearderMobileMenuLink(WebDriver driver) {
-        waitForElementClickable(driver, BasePageUI.HEARDER_MOBILE_MENU_LINK);
-        clickToElement(driver, BasePageUI.HEARDER_MOBILE_MENU_LINK);
-        return PageGeneratorManager.getUserMobilePage(driver);
-    }
-
-    public UserTVPageObject clickToHearderTVMenuLink(WebDriver driver) {
-        waitForElementClickable(driver, BasePageUI.HEARDER_TV_MENU_LINK);
-        clickToElement(driver, BasePageUI.HEARDER_TV_MENU_LINK);
-        return PageGeneratorManager.getUserTVPage(driver);
+    public UserProductPageObject clickToHearderProductMenuLinkByProductName(WebDriver driver, String productName) {
+        waitForElementClickable(driver, BasePageUI.HEARDER_PRODUCT_MENU_LINK, productName);
+        clickToElement(driver, BasePageUI.HEARDER_PRODUCT_MENU_LINK, productName);
+        return PageGeneratorManager.getUserProductPage(driver);
     }
 
     public String getWindowIdAtCurrentPage(WebDriver driver) {
@@ -591,9 +591,41 @@ public class BasePage {
 
     }
 
-    public AdminLoginPageObject clickToLogoutLink(WebDriver driver) {
+    public AdminLoginPageObject clickToLogoutLinkAtAdminPage(WebDriver driver) {
         waitForElementClickable(driver, BasePageUI.ADMIN_LOGOUT_LINK);
         clickToElement(driver, BasePageUI.ADMIN_LOGOUT_LINK);
         return PageGeneratorManager.getAdminLoginPage(driver);
+    }
+
+    public void hoverMouseToHeaderLinkByTextAtAdminPage(WebDriver driver, String menuText) {
+        waitForElementClickable(driver, BasePageUI.ADMIN_HEADER_MENU_LINK_BY_TEXT, menuText);
+        hoverMouseToElement(driver, BasePageUI.ADMIN_HEADER_MENU_LINK_BY_TEXT, menuText);
+    }
+
+    public BasePage clickToHeaderLinkByTextAtAdminPage(WebDriver driver, String menuText) {
+        waitForElementClickable(driver, BasePageUI.ADMIN_HEADER_MENU_LINK_BY_TEXT, menuText);
+        clickToElement(driver, BasePageUI.ADMIN_HEADER_MENU_LINK_BY_TEXT, menuText);
+        switch (menuText){
+            case "Orders":
+                return PageGeneratorManager.getAdminOrdersPage(driver);
+            case "Pending Reviews":
+                return PageGeneratorManager.getAdminCatalogProductReviewPage(driver);
+
+            default:
+                throw new RuntimeException("Invalid page name at footer menu area");
+        }
+    }
+
+    public boolean isFileDownloaded(String downloadPath, String fileName){
+        File dir = new File(downloadPath);
+        File[] dirContents = dir.listFiles();
+        for (int i = 0; i < dirContents.length; i++){
+            if (dirContents[i].getName().contains(fileName)){
+                // File has been found, it can now be deteled
+                dirContents[i].delete();
+                return true;
+            }
+        }
+        return false;
     }
 }

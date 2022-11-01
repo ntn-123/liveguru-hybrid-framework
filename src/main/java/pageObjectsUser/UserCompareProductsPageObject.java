@@ -37,8 +37,8 @@ public class UserCompareProductsPageObject extends BasePage {
         return isElementDisplayed(driver, UserCompareProductsPageUI.MOBILE_SKU_TEXT, sku);
     }
 
-    public UserMobilePageObject closeWindowCompareProducts(String parentWindowId) {
+    public UserProductPageObject closeWindowCompareProducts(String parentWindowId) {
         closeAllTabWithoutParent(driver, parentWindowId);
-        return PageGeneratorManager.getUserMobilePage(driver);
+        return PageGeneratorManager.getUserProductPage(driver);
     }
 }

@@ -62,4 +62,5 @@ public class AdminManageCustomerPageObject extends BasePage {
         waitForElementVisible(driver, AdminManageCustomerPageUI.NO_RECORDS_FOUND_MESSAGE);
         return getElementText(driver, AdminManageCustomerPageUI.NO_RECORDS_FOUND_MESSAGE);
     }
+
 }

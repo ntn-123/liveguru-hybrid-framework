@@ -1,8 +1,7 @@
 package commons;
 
 import org.openqa.selenium.WebDriver;
-import pageObjectsAdmin.AdminLoginPageObject;
-import pageObjectsAdmin.AdminManageCustomerPageObject;
+import pageObjectsAdmin.*;
 import pageObjectsUser.*;
 
 public class PageGeneratorManager {
@@ -21,29 +20,25 @@ public class PageGeneratorManager {
     public static UserAccountInformationPageObject getUserAccountInformationPage(WebDriver driver){
         return new UserAccountInformationPageObject(driver);
     }
-    public static UserMobilePageObject getUserMobilePage(WebDriver driver){
-        return new UserMobilePageObject(driver);
+    public static UserProductPageObject getUserProductPage(WebDriver driver){
+        return new UserProductPageObject(driver);
     }
-    public static UserMobileDetailPageObject getUserMobileDetailPage(WebDriver driver){
-        return new UserMobileDetailPageObject(driver);
+    public static UserProductDetailPageObject getUserProductDetailPage(WebDriver driver){
+        return new UserProductDetailPageObject(driver);
     }
     public static UserCheckoutCartPageObject getUserCheckoutCartPage(WebDriver driver){
         return new UserCheckoutCartPageObject(driver);
     }public static UserCompareProductsPageObject getUserCompareProductsPage(WebDriver driver){
         return new UserCompareProductsPageObject(driver);
     }
-    public static UserTVPageObject getUserTVPage(WebDriver driver){
-        return new UserTVPageObject(driver);
-    }
+
     public static UserMyWishlistPageObject getUserMyWishlistPage(WebDriver driver){
         return new UserMyWishlistPageObject(driver);
     }
     public static UserShareWishlistPageObject getUserShareWishlistPage(WebDriver driver){
         return new UserShareWishlistPageObject(driver);
     }
-    public static UserTVDetailPageObject getUserTVDetailPage(WebDriver driver){
-        return new UserTVDetailPageObject(driver);
-    }
+
     public static UserCheckoutOnepagePageObject getUserCheckoutOnepagePage(WebDriver driver){
         return new UserCheckoutOnepagePageObject(driver);
     }
@@ -59,5 +54,17 @@ public class PageGeneratorManager {
 
     public static AdminManageCustomerPageObject getAdminManageCustomerPage(WebDriver driver){
         return new AdminManageCustomerPageObject(driver);
+    }
+
+    public static AdminOrdersPageObject getAdminOrdersPage(WebDriver driver){
+        return new AdminOrdersPageObject(driver);
+    }
+
+    public static AdminCatalogProductReviewPageObject getAdminCatalogProductReviewPage(WebDriver driver){
+        return new AdminCatalogProductReviewPageObject(driver);
+    }
+
+    public static AdminCatalogProductEditReviewPageObject getAdminCatalogProductEditReviewPage(WebDriver driver){
+        return new AdminCatalogProductEditReviewPageObject(driver);
     }
 }

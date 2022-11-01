@@ -12,7 +12,7 @@ import pageObjectsUser.*;
 
 import java.util.Set;
 
-public class RegisterAndLogin extends BaseTest {
+public class UserManage extends BaseTest {
     @Parameters({"browser", "userUrl"})
     @BeforeClass
     public void beforeClass(String browserName, String appUrl){
@@ -112,16 +112,16 @@ public class RegisterAndLogin extends BaseTest {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         log.info("Cost - Step 02: Click to Mobile menu");
-        userMobilePage = userHomePage.clickToHearderMobileMenuLink(driver);
+        userProductPage = userHomePage.clickToHearderProductMenuLinkByProductName(driver, "Mobile");
 
         log.info("Cost - Step 03: Get cost Sony Xperia mobile in the list of all mobiles");
-        String costAtListPage = userMobilePage.getMobileCostByMobileNameAtMobileList("Sony Xperia");
+        String costAtListPage = userProductPage.getProductCostByProductName("Sony Xperia");
 
         log.info("Cost - Step 04: Click to Sony Xperia detail");
-        userMobileDetailPage = userMobilePage.clickToMobileNameTitle("Sony Xperia");
+        userProductDetailPage = userProductPage.clickToProductNameTitle("Sony Xperia");
 
         log.info("Cost - Step 05: Get cost Sony Xperia mobile in detail page");
-        String costAtDetailPage = userMobileDetailPage.getMobileCostByMobileNameAtDetailPage("Sony Xperia");
+        String costAtDetailPage = userProductDetailPage.getProductCostByProductNameAtDetailPage("Sony Xperia");
 
         log.info("Cost - Step 06: Compare cost");
         Assert.assertEquals(costAtListPage, costAtDetailPage);
@@ -134,10 +134,10 @@ public class RegisterAndLogin extends BaseTest {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         log.info("Coupon - Step 02: Click to Mobile menu");
-        userMobilePage = userHomePage.clickToHearderMobileMenuLink(driver);
+        userProductPage = userHomePage.clickToHearderProductMenuLinkByProductName(driver, "Mobile");
 
         log.info("Coupon - Step 03: Click to Add to cart button at Sony Xperia");
-        userCheckoutCartPage = userMobilePage.clickToAddToCartButtonAtMobileList("Sony Xperia");
+        userCheckoutCartPage = userProductPage.clickToAddToCartButtonAtMobileList("Sony Xperia");
 
         log.info("Coupon - Step 04: Verify add mobile to cart success");
         Assert.assertEquals(userCheckoutCartPage.getAddedToCartSuccessMessage(), "Sony Xperia was added to your shopping cart.");
@@ -160,10 +160,10 @@ public class RegisterAndLogin extends BaseTest {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         log.info("Add - Step 02: Click to Mobile menu");
-        userMobilePage = userHomePage.clickToHearderMobileMenuLink(driver);
+        userProductPage = userHomePage.clickToHearderProductMenuLinkByProductName(driver, "Mobile");
 
         log.info("Add - Step 03: Click to Add to cart button at Sony Xperia");
-        userCheckoutCartPage = userMobilePage.clickToAddToCartButtonAtMobileList("Sony Xperia");
+        userCheckoutCartPage = userProductPage.clickToAddToCartButtonAtMobileList("Sony Xperia");
 
         log.info("Add - Step 04: Verify add mobile to cart success");
         Assert.assertEquals(userCheckoutCartPage.getAddedToCartSuccessMessage(), "Sony Xperia was added to your shopping cart.");
@@ -197,28 +197,28 @@ public class RegisterAndLogin extends BaseTest {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         log.info("Compare - Step 02: Click to Mobile menu");
-        userMobilePage = userHomePage.clickToHearderMobileMenuLink(driver);
+        userProductPage = userHomePage.clickToHearderProductMenuLinkByProductName(driver, "Mobile");
 
         log.info("Compare - Step 03: Click to Add to compare link at Sony Xperia");
-        userMobilePage.clickToAddToCompareLinkByMobileNameAtMobileList("Sony Xperia");
+        userProductPage.clickToAddToCompareLinkByMobileNameAtMobileList("Sony Xperia");
 
         log.info("Compare - Step 04: Verify Sony Xperia added to compare success");
-        Assert.assertTrue(userMobilePage.isAddedToCompareSuccessMessageDisplayed("The product Sony Xperia has been added to comparison list."));
+        Assert.assertTrue(userProductPage.isAddedToCompareSuccessMessageDisplayed("The product Sony Xperia has been added to comparison list."));
 
         log.info("Compare - Step 05: Click to Add to compare link at Iphone");
-        userMobilePage.clickToAddToCompareLinkByMobileNameAtMobileList("IPhone");
+        userProductPage.clickToAddToCompareLinkByMobileNameAtMobileList("IPhone");
 
         log.info("Compare - Step 06: Verify Iphone added to compare success");
-        Assert.assertTrue(userMobilePage.isAddedToCompareSuccessMessageDisplayed("The product IPhone has been added to comparison list."));
+        Assert.assertTrue(userProductPage.isAddedToCompareSuccessMessageDisplayed("The product IPhone has been added to comparison list."));
 
         log.info("Compare - Step 07: Get WindowID at Mobile page");
-        String windowIdAtMobile = userMobilePage.getWindowIdAtCurrentPage(driver);
+        String windowIdAtMobile = userProductPage.getWindowIdAtCurrentPage(driver);
 
         log.info("Compare - Step 08: Click to Compare button");
-        userCompareProductsPage = userMobilePage.clickToCompareButton();
+        userCompareProductsPage = userProductPage.clickToCompareButton();
 
         log.info("Compare - Step 09: Get WindowID at Mobile page");
-        String windowIdAtCompareProducts = userMobilePage.getWindowIdAtCurrentPage(driver);
+        String windowIdAtCompareProducts = userProductPage.getWindowIdAtCurrentPage(driver);
 
         log.info("Compare - Step 10: Verify Compare product title displayed in new wimdow");
         Assert.assertTrue(userCompareProductsPage.isCompareProductsHeadingDisplayed());
@@ -236,11 +236,11 @@ public class RegisterAndLogin extends BaseTest {
         Assert.assertTrue(userCompareProductsPage.isMobileSkuByMobileNameDisplayed("MOB0002"));
 
         log.info("Compare - Step 13: Close Compare products window");
-        userMobilePage = userCompareProductsPage.closeWindowCompareProducts(windowIdAtMobile);
-        userMobilePage.sleepInSecond(2);
+        userProductPage = userCompareProductsPage.closeWindowCompareProducts(windowIdAtMobile);
+        userProductPage.sleepInSecond(2);
 
         log.info("Compare - Step 14: Verify Compare products window closed");
-        Assert.assertTrue(userMobilePage.isWindowClosed(driver, windowIdAtCompareProducts));
+        Assert.assertTrue(userProductPage.isWindowClosed(driver, windowIdAtCompareProducts));
         
     }
 
@@ -251,10 +251,10 @@ public class RegisterAndLogin extends BaseTest {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         log.info("Wishlist - Step 02: Click to TV menu");
-        userTVPage = userHomePage.clickToHearderTVMenuLink(driver);
+        userProductPage = userHomePage.clickToHearderProductMenuLinkByProductName(driver, "TV");
 
         log.info("Wishlist - Step 03: Click to Add to wishlist link at LG LCD");
-        userMyWishlistPage = userTVPage.clickToAddToWishlistLinkByTVNameAtTVList("LG LCD");
+        userMyWishlistPage = userProductPage.clickToAddToWishlistLinkByProductName("LG LCD");
 
         log.info("Wishlist - Step 04: Verify LG LCD added to wishlist success displayed");
         Assert.assertEquals(userMyWishlistPage.getAddedToWishlistSuccessMessage("innerText"),"LG LCD has been added to your wishlist. Click here to continue shopping.");
@@ -286,43 +286,43 @@ public class RegisterAndLogin extends BaseTest {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         log.info("Review - Step 02: Click to TV menu");
-        userTVPage = userHomePage.clickToHearderTVMenuLink(driver);
+        userProductPage = userHomePage.clickToHearderProductMenuLinkByProductName(driver, "TV");
 
-        log.info("Review - Step 03: Click to Sony Xperia name title");
-        userTVDetailPage = userTVPage.clickToTVNameTitle("Samsung LCD");
+        log.info("Review - Step 03: Click to Samsung LCD name title");
+        userProductDetailPage = userProductPage.clickToProductNameTitle("Samsung LCD");
 
         log.info("Review - Step 04: Click to Add your review link");
-        userTVDetailPage.clickToAddYourReviewLink();
+        userProductDetailPage.clickToAddYourReviewLink();
 
         log.info("Review - Step 05: Click to Submit review button");
-        userTVDetailPage.clickToSubmitReviewButton();
+        userProductDetailPage.clickToSubmitReviewButton();
 
         log.info("Review - Step 06: Verify required error message at Rate field displayed");
-        Assert.assertEquals(userTVDetailPage.getErrorMessageReviewAtInputFieldByID("advice-validate-rating-validate_rating"), "Please select one of each of the ratings above");
+        Assert.assertEquals(userProductDetailPage.getErrorMessageReviewAtInputFieldByID("advice-validate-rating-validate_rating"), "Please select one of each of the ratings above");
 
         log.info("Review - Step 07: Verify required error message at Review field displayed");
-        Assert.assertEquals(userTVDetailPage.getErrorMessageReviewAtInputFieldByID("advice-required-entry-review_field"), "THIS IS A REQUIRED FIELD.");
+        Assert.assertEquals(userProductDetailPage.getErrorMessageReviewAtInputFieldByID("advice-required-entry-review_field"), "THIS IS A REQUIRED FIELD.");
 
         log.info("Review - Step 08: Verify required error message at Summary field displayed");
-        Assert.assertEquals(userTVDetailPage.getErrorMessageReviewAtInputFieldByID("advice-required-entry-summary_field"), "THIS IS A REQUIRED FIELD.");
+        Assert.assertEquals(userProductDetailPage.getErrorMessageReviewAtInputFieldByID("advice-required-entry-summary_field"), "THIS IS A REQUIRED FIELD.");
 
         log.info("Review - Step 09: Check to Rate Field");
-        userTVDetailPage.checkToRateRadioButtonByID("Quality 1_3");
+        userProductDetailPage.checkToRateRadioButtonByID("Quality 1_3");
 
         log.info("Review - Step 10: Enter to Review field");
-        userTVDetailPage.sendkeyToReviewFieldTextarea("Review");
+        userProductDetailPage.sendkeyToReviewFieldTextarea("Review");
 
         log.info("Review - Step 11: Enter to Review field");
-        userTVDetailPage.sendkeyToSummaryFieldTextbox("Summary");
+        userProductDetailPage.sendkeyToSummaryFieldTextbox("Summary");
 
         log.info("Review - Step 12: Enter to Review field");
-        userTVDetailPage.sendkeyToNicknameFieldTextbox("Nickname");
+        userProductDetailPage.sendkeyToNicknameFieldTextbox("Nickname");
 
         log.info("Review - Step 13: Click to Submit review button");
-        userTVDetailPage.clickToSubmitReviewButton();
+        userProductDetailPage.clickToSubmitReviewButton();
 
         log.info("Review - Step 14: Verify reviewed success message displayed");
-        Assert.assertEquals(userTVDetailPage.getReviewedSuccessMessage(), "Your review has been accepted for moderation.");
+        Assert.assertEquals(userProductDetailPage.getReviewedSuccessMessage(), "Your review has been accepted for moderation.");
     }
 
     @Test
@@ -438,14 +438,12 @@ public class RegisterAndLogin extends BaseTest {
     private UserMyDashboardPageObject userMyDashboardPage;
     private UserAccountInformationPageObject userAccountInformationPage;
     private  UserLoginPageObject userLoginPage;
-    private UserMobilePageObject userMobilePage;
-    private UserMobileDetailPageObject userMobileDetailPage;
+    private UserProductPageObject userProductPage;
+    private UserProductDetailPageObject userProductDetailPage;
     private UserCheckoutCartPageObject userCheckoutCartPage;
     private UserCompareProductsPageObject userCompareProductsPage;
-    private UserTVPageObject userTVPage;
     private UserMyWishlistPageObject userMyWishlistPage;
     private UserShareWishlistPageObject userShareWishlistPage;
-    private UserTVDetailPageObject userTVDetailPage;
     private UserCheckoutOnepagePageObject userCheckoutOnepagePage;
     private UserCatalogAdvancedSearchPageObject userCatalogAdvancedSearchPage;
     private UserAdvanceSearchResultPageObject userAdvanceSearchResultPage;

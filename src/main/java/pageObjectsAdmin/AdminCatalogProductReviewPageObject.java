@@ -4,7 +4,6 @@ import commons.BasePage;
 import commons.PageGeneratorManager;
 import org.openqa.selenium.WebDriver;
 import pageUIsAdmin.AdminCatalogProductReviewPageUI;
-import pageUIsAdmin.AdminLoginPageUI;
 
 public class AdminCatalogProductReviewPageObject extends BasePage {
     private WebDriver driver;
@@ -13,9 +12,9 @@ public class AdminCatalogProductReviewPageObject extends BasePage {
         this.driver = driver;
     }
 
-    public void sortTableByClickToHeaderTitle(String textValue) {
-        waitForElementClickable(driver, AdminCatalogProductReviewPageUI.COLUMN_HEADER_BY_TEXT, textValue);
-        clickToElement(driver, AdminCatalogProductReviewPageUI.COLUMN_HEADER_BY_TEXT, textValue);
+    public void sortTableByClickToHeaderColumnName(String textValue) {
+        waitForElementClickable(driver, AdminCatalogProductReviewPageUI.HEADER_COLUMN_NAME, textValue);
+        clickToElement(driver, AdminCatalogProductReviewPageUI.HEADER_COLUMN_NAME, textValue);
     }
 
     public AdminCatalogProductEditReviewPageObject clickToEditLinkAtRowNumber(String rowNumber) {

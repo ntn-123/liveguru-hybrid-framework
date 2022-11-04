@@ -11,4 +11,5 @@ public class UserProductDetailPageUI {
     public static final String NICKNAME_TEXTBOX = "xpath=//input[@id='nickname_field']";
     public static final String REVIEWED_SUCCESS_MESSAGE = "xpath=//li[@class='success-msg']//span";
     public static final String BOTTOM_TAB_BY_TEXT = "xpath=//ul[@class='toggle-tabs']//span[text()='%s']";
+    public static final String REVIEW_COMMENT = "xpath=//div[@id='customer-reviews']//dt[1]/a[contains(text(),'%s')]";
 }

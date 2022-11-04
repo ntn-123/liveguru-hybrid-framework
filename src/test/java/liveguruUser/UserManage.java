@@ -312,10 +312,10 @@ public class UserManage extends BaseTest {
         log.info("Review - Step 10: Enter to Review field");
         userProductDetailPage.sendkeyToReviewFieldTextarea("Review");
 
-        log.info("Review - Step 11: Enter to Review field");
+        log.info("Review - Step 11: Enter to Summary field");
         userProductDetailPage.sendkeyToSummaryFieldTextbox("Summary");
 
-        log.info("Review - Step 12: Enter to Review field");
+        log.info("Review - Step 12: Enter to Nickname field");
         userProductDetailPage.sendkeyToNicknameFieldTextbox("Nickname");
 
         log.info("Review - Step 13: Click to Submit review button");

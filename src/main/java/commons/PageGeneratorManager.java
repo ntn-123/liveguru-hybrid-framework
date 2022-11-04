@@ -67,4 +67,8 @@ public class PageGeneratorManager {
     public static AdminCatalogProductEditReviewPageObject getAdminCatalogProductEditReviewPage(WebDriver driver){
         return new AdminCatalogProductEditReviewPageObject(driver);
     }
+
+    public static AdminInvoicesPageObject getAdminInvoicesPage(WebDriver driver){
+        return new AdminInvoicesPageObject(driver);
+    }
 }

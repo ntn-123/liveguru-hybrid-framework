@@ -298,7 +298,7 @@ public class AdminManage extends BaseTest {
         adminOrdersPage.sleepInSecond(5);
     }
 
-    @Test
+    //@Test
     public void Admin_Manage_05_Product_Review() {
         log.info("Product_Review - Step 01: Open LiveGuru99 user site");
         userHomePage.openPageUrl(driver, userUrl);
@@ -314,10 +314,11 @@ public class AdminManage extends BaseTest {
         log.info("Product_Review - Step 04: Enter to Review field");
         userProductDetailPage.sendkeyToReviewFieldTextarea("Review");
 
-        log.info("Product_Review - Step 05: Enter to Review field");
-        userProductDetailPage.sendkeyToSummaryFieldTextbox("Summary");
+        String reviewSumary = "Summary " + randomNumber;
+        log.info("Product_Review - Step 05: Enter to Summary field");
+        userProductDetailPage.sendkeyToSummaryFieldTextbox(reviewSumary);
 
-        log.info("Product_Review - Step 06: Enter to Review field");
+        log.info("Product_Review - Step 06: Enter to Nickname field");
         userProductDetailPage.sendkeyToNicknameFieldTextbox("Nickname");
 
         log.info("Product_Review - Step 07: Click to Submit review button");
@@ -348,9 +349,9 @@ public class AdminManage extends BaseTest {
         log.info("Product_Review - Step 15: Click to header Pending Reviews sub-menu link");
         adminCatalogProductReviewPage = (AdminCatalogProductReviewPageObject) adminManageCustomerPage.clickToHeaderLinkByTextAtAdminPage(driver, "Pending Reviews");
 
-        log.info("Product_Review - Step 16: Sort table by Id");
-        adminCatalogProductReviewPage.sortTableByClickToHeaderTitle("ID");
-        adminCatalogProductReviewPage.sleepInSecond(2);
+        //log.info("Product_Review - Step 16: Sort table by Id");
+        //adminCatalogProductReviewPage.sortTableByClickToHeaderColumnName("ID");
+        //adminCatalogProductReviewPage.sleepInSecond(2);
 
         log.info("Product_Review - Step 17: Click Edit link at first row");
         adminCatalogProductEditReviewPage = adminCatalogProductReviewPage.clickToEditLinkAtRowNumber("1");
@@ -377,7 +378,63 @@ public class AdminManage extends BaseTest {
         log.info("Product_Review - Step 24: Click to Review tab at bottom of page");
         userProductDetailPage.clickToBottomTabByText("Reviews");
 
+        log.info("Product_Review - Step 25: Verify review comment displayed");
+        Assert.assertTrue(userProductDetailPage.isReviewCommnetDisplayed(reviewSumary));
+    }
 
+
+    @Test
+    public void Admin_Manage_06_Sort_Invoice() {
+        log.info("Sort_Invoice - Step 01: Open LiveGuru99 admin site");
+        userHomePage.openPageUrl(driver, adminUrl);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+
+        log.info("Sort_Invoice - Step 02: Login admin system");
+        adminManageCustomerPage = adminLoginPage.adminLoginToSystem(adminUserName, adminPassword);
+
+        log.info("Sort_Invoice - Step 03: Close message popup");
+        adminManageCustomerPage.clickToCloseButtonAtMessagePopup();
+
+        log.info("Sort_Invoice - Step 04: Hover to header Sales menu link");
+        adminManageCustomerPage.hoverMouseToHeaderLinkByTextAtAdminPage(driver, "Sales");
+
+        log.info("Sort_Invoice - Step 05: Click to header Invoices menu link");
+        adminInvoicesPage = (AdminInvoicesPageObject) adminManageCustomerPage.clickToHeaderLinkByTextAtAdminPage(driver, "Invoices");
+
+        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Invoice #' ");
+        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Invoice #");
+        //adminInvoicesPage.sleepInSecond(2);
+
+        //log.info("Sort_Invoice - Step 07: Verify Invoices ID sort by Ascending");
+        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Invoice #"));
+
+        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Order #' ");
+        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Order #");
+        //adminInvoicesPage.sleepInSecond(2);
+
+        //log.info("Sort_Invoice - Step 07: Verify Order # sort by Ascending");
+        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Order #"));
+
+        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Bill to Name' ");
+        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Bill to Name");
+        //adminInvoicesPage.sleepInSecond(2);
+
+        //log.info("Sort_Invoice - Step 07: Verify Bill to Name sort by Ascending");
+        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Bill to Name"));
+
+        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Amount' ");
+        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Amount");
+        //adminInvoicesPage.sleepInSecond(2);
+
+        //log.info("Sort_Invoice - Step 07: Verify Amount sort by Ascending");
+        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Amount"));
+
+        log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Invoice Date' ");
+        adminInvoicesPage.sortTableByClickToHeaderColumnName("Invoice Date");
+        adminInvoicesPage.sleepInSecond(2);
+
+        log.info("Sort_Invoice - Step 07: Verify Invoice Date sort by Ascending");
+        Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Invoice Date"));
     }
 
     @AfterClass(alwaysRun = true)
@@ -398,6 +455,7 @@ public class AdminManage extends BaseTest {
     private AdminCatalogProductReviewPageObject adminCatalogProductReviewPage;
     private AdminCatalogProductEditReviewPageObject adminCatalogProductEditReviewPage;
     private UserProductPageObject userProductPage;
+    private AdminInvoicesPageObject adminInvoicesPage;
     private String firstName, lastName, emailAddress, password;
     private String adminUserName, adminPassword;
     private String firstNameUpdate, lastNameUpdate, emailAddressUpdate, passwordUpdate;

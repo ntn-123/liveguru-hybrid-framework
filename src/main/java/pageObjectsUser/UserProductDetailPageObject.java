@@ -2,7 +2,10 @@ package pageObjectsUser;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pageUIsUser.UserProductDetailPageUI;
+
+import java.util.List;
 
 public class UserProductDetailPageObject extends BasePage {
     private WebDriver driver;
@@ -40,9 +43,9 @@ public class UserProductDetailPageObject extends BasePage {
         sendKeyToElement(driver, UserProductDetailPageUI.REVIEW_TEXTAREA, reviewText);
     }
 
-    public void sendkeyToSummaryFieldTextbox(String sumaryText) {
+    public void sendkeyToSummaryFieldTextbox(String summaryText) {
         waitForElementVisible(driver, UserProductDetailPageUI.SUMMARY_TEXTBOX);
-        sendKeyToElement(driver, UserProductDetailPageUI.SUMMARY_TEXTBOX, sumaryText);
+        sendKeyToElement(driver, UserProductDetailPageUI.SUMMARY_TEXTBOX, summaryText);
     }
 
     public void sendkeyToNicknameFieldTextbox(String nicknameText) {
@@ -58,5 +61,10 @@ public class UserProductDetailPageObject extends BasePage {
     public void clickToBottomTabByText(String tabValue) {
         waitForElementClickable(driver, UserProductDetailPageUI.BOTTOM_TAB_BY_TEXT, tabValue);
         clickToElement(driver, UserProductDetailPageUI.BOTTOM_TAB_BY_TEXT, tabValue);
+    }
+
+    public boolean isReviewCommnetDisplayed(String reviewText) {
+       waitForElementVisible(driver, UserProductDetailPageUI.REVIEW_COMMENT, reviewText);
+       return isElementDisplayed(driver, UserProductDetailPageUI.REVIEW_COMMENT, reviewText);
     }
 }

@@ -152,6 +152,10 @@ public class BasePage {
         return driver.findElements(getByLocator(locatorType));
     }
 
+    public List<WebElement> getListWebElement(WebDriver driver, String locatorType, String... dynamicValues){
+        return driver.findElements(getByLocator(getDynamicXpath(locatorType, dynamicValues)));
+    }
+
     public void clickToElement(WebDriver driver, String locatorType) {
         getWebElement(driver, locatorType).click();
     }
@@ -610,6 +614,8 @@ public class BasePage {
                 return PageGeneratorManager.getAdminOrdersPage(driver);
             case "Pending Reviews":
                 return PageGeneratorManager.getAdminCatalogProductReviewPage(driver);
+            case "Invoices":
+                return PageGeneratorManager.getAdminInvoicesPage(driver);
 
             default:
                 throw new RuntimeException("Invalid page name at footer menu area");

@@ -6,12 +6,14 @@ import org.openqa.selenium.WebElement;
 import pageUIsAdmin.AdminInvoicesPageUI;
 import pageUIsAdmin.AdminManageCustomerPageUI;
 
+import java.text.Collator;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class AdminInvoicesPageObject extends BasePage {
     private WebDriver driver;
@@ -40,7 +42,7 @@ public class AdminInvoicesPageObject extends BasePage {
             Collections.sort(invoiceSortList);
             return invoiceList.equals(invoiceSortList);
         } else if (columnName == "Invoice Date" || columnName == "Order Date"){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy hh:mm:ss a");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy h:m:s a", Locale.US);
             ArrayList<LocalDateTime> invoiceList = new ArrayList<>();
             for (WebElement invoice : invoiceValueByColumnIndex){
                 invoiceList.add(LocalDateTime.parse(invoice.getText(), formatter));
@@ -55,15 +57,16 @@ public class AdminInvoicesPageObject extends BasePage {
         } else {
             ArrayList<String> invoiceList = new ArrayList<>();
             for (WebElement invoice : invoiceValueByColumnIndex){
-                invoiceList.add(invoice.getText().trim());
+                invoiceList.add(invoice.getText());
                 System.out.println(invoice.getText().trim());
             }
-            ArrayList<String> invoiceSortList = new ArrayList<>();
-            for (String invoice : invoiceList){
-                invoiceSortList.add(invoice);
+            ArrayList<String> invoiceSortList = new ArrayList<>(invoiceList);
+            //Collections.sort(invoiceSortList, Collator.getInstance(Locale.ENGLISH));
+            invoiceSortList.sort(String::compareToIgnoreCase);
+            for (String invoice : invoiceSortList){
                 System.out.println(invoice);
             }
-            Collections.sort(invoiceSortList);
+            //return invoiceSortList.size() == invoiceList.size() && invoiceSortList.containsAll(invoiceList);
             return invoiceSortList.equals(invoiceList);
         }
     }
@@ -83,18 +86,35 @@ public class AdminInvoicesPageObject extends BasePage {
             Collections.sort(invoiceSortList);
             Collections.reverse(invoiceSortList);
             return invoiceList.equals(invoiceSortList);
-        } else {
-            ArrayList<String> invoiceList = new ArrayList<>();
+        } else if (columnName == "Invoice Date" || columnName == "Order Date"){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy h:m:s a", Locale.US);
+            ArrayList<LocalDateTime> invoiceList = new ArrayList<>();
             for (WebElement invoice : invoiceValueByColumnIndex){
-                invoiceList.add(invoice.getText().trim());
+                invoiceList.add(LocalDateTime.parse(invoice.getText(), formatter));
             }
-            ArrayList<String> invoiceSortList = new ArrayList<>();
-            for (String invoice : invoiceList){
+            ArrayList<LocalDateTime> invoiceSortList = new ArrayList<>();
+            for (LocalDateTime invoice : invoiceList){
                 invoiceSortList.add(invoice);
             }
             Collections.sort(invoiceSortList);
             Collections.reverse(invoiceSortList);
-            return invoiceList.equals(invoiceSortList);
+            return invoiceSortList.equals(invoiceList);
+
+        } else {
+            ArrayList<String> invoiceList = new ArrayList<>();
+            for (WebElement invoice : invoiceValueByColumnIndex){
+                invoiceList.add(invoice.getText().trim());
+                System.out.println(invoice.getText().trim());
+            }
+            ArrayList<String> invoiceSortList = new ArrayList<>();
+            for (String invoice : invoiceList){
+                invoiceSortList.add(invoice);
+                System.out.println(invoice);
+            }
+            Collections.sort(invoiceSortList);
+            Collections.reverse(invoiceSortList);
+            return invoiceSortList.size() == invoiceList.size() && invoiceSortList.containsAll(invoiceList);
+            //return invoiceSortList.equals(invoiceList);
         }
     }
 }

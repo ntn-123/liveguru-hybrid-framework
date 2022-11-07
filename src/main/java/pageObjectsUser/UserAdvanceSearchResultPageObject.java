@@ -13,9 +13,4 @@ public class UserAdvanceSearchResultPageObject extends BasePage {
     }
 
 
-    public Set<String> getProductNameAndPriceAtSearchResult() {
-        Set<String> productInfo = null;
-        //List<WebElement> productNames =
-        return  productInfo;
-    }
 }

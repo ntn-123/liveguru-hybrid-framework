@@ -40,9 +40,6 @@ public class BaseTest {
             driver = new FirefoxDriver(options);
         } else if(browserList == BrowserList.CHROME) {
             WebDriverManager.chromedriver().setup();
-            // Disable notify automation on Chrom browser
-            //options.setExperimentalOption("useAutomationExtension", false);
-            //options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
             driver = new ChromeDriver();
         } else if(browserList == BrowserList.H_CHROME) {
             WebDriverManager.chromedriver().setup();
@@ -84,9 +81,6 @@ public class BaseTest {
             driver = new FirefoxDriver(options);
         } else if(browserList == BrowserList.CHROME) {
             WebDriverManager.chromedriver().setup();
-            // Disable notify automation on Chrom browser
-            //options.setExperimentalOption("useAutomationExtension", false);
-            //options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
             driver = new ChromeDriver();
         } else if(browserList == BrowserList.H_CHROME) {
             WebDriverManager.chromedriver().setup();
@@ -109,10 +103,7 @@ public class BaseTest {
             throw new RuntimeException("Browser name invalid");
         }
         driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
-
-        //driver.get(GlobalConstants.USER_DEV_URL);
         driver.get(appUrl);
-        //driver.get("http://live.techpanda.org/");
         return driver;
     }
 

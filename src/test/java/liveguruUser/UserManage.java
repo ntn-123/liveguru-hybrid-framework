@@ -325,7 +325,7 @@ public class UserManage extends BaseTest {
         Assert.assertEquals(userProductDetailPage.getReviewedSuccessMessage(), "Your review has been accepted for moderation.");
     }
 
-    @Test
+    //@Test
     public void User_09_Purchase_Product() {
         log.info("Purchase - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, homePageUrl);
@@ -419,13 +419,13 @@ public class UserManage extends BaseTest {
 
         log.info("Advanced_Search - Step 03: Enter to Price text box with range 0 - 150");
         userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price", "0");
-        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price_to", "150");
+        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price_to", "140");
 
         log.info("Advanced_Search - Step 04: Click to Search button");
         userAdvanceSearchResultPage = userCatalogAdvancedSearchPage.clickToSearchButton();
 
-        log.info("Advanced_Search - Step 05: Note Product name and Price in the result");
-        Set<String> productInfoWithRangePrice0And150 = userAdvanceSearchResultPage.getProductNameAndPriceAtSearchResult();
+        log.info("Advanced_Search - Step 05: Verify Product name and Price in the result");
+
     }
 
     @AfterClass(alwaysRun = true)

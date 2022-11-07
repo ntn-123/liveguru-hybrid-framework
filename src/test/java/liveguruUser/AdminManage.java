@@ -383,7 +383,7 @@ public class AdminManage extends BaseTest {
     }
 
 
-    @Test
+    //@Test
     public void Admin_Manage_06_Sort_Invoice() {
         log.info("Sort_Invoice - Step 01: Open LiveGuru99 admin site");
         userHomePage.openPageUrl(driver, adminUrl);
@@ -401,12 +401,12 @@ public class AdminManage extends BaseTest {
         log.info("Sort_Invoice - Step 05: Click to header Invoices menu link");
         adminInvoicesPage = (AdminInvoicesPageObject) adminManageCustomerPage.clickToHeaderLinkByTextAtAdminPage(driver, "Invoices");
 
-        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Invoice #' ");
-        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Invoice #");
-        //adminInvoicesPage.sleepInSecond(2);
+        log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Invoice #' ");
+        adminInvoicesPage.sortTableByClickToHeaderColumnName("Invoice #");
+        adminInvoicesPage.sleepInSecond(2);
 
-        //log.info("Sort_Invoice - Step 07: Verify Invoices ID sort by Ascending");
-        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Invoice #"));
+        log.info("Sort_Invoice - Step 07: Verify Invoices ID sort by Ascending");
+        Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Invoice #"));
 
         //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Order #' ");
         //adminInvoicesPage.sortTableByClickToHeaderColumnName("Order #");
@@ -415,12 +415,12 @@ public class AdminManage extends BaseTest {
         //log.info("Sort_Invoice - Step 07: Verify Order # sort by Ascending");
         //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Order #"));
 
-        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Bill to Name' ");
-        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Bill to Name");
-        //adminInvoicesPage.sleepInSecond(2);
+        log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Bill to Name' ");
+        adminInvoicesPage.sortTableByClickToHeaderColumnName("Bill to Name");
+        adminInvoicesPage.sleepInSecond(2);
 
-        //log.info("Sort_Invoice - Step 07: Verify Bill to Name sort by Ascending");
-        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Bill to Name"));
+        log.info("Sort_Invoice - Step 07: Verify Bill to Name sort by Ascending");
+        Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Bill to Name"));
 
         //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Amount' ");
         //adminInvoicesPage.sortTableByClickToHeaderColumnName("Amount");
@@ -429,17 +429,134 @@ public class AdminManage extends BaseTest {
         //log.info("Sort_Invoice - Step 07: Verify Amount sort by Ascending");
         //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Amount"));
 
-        log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Invoice Date' ");
-        adminInvoicesPage.sortTableByClickToHeaderColumnName("Invoice Date");
-        adminInvoicesPage.sleepInSecond(2);
+        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Invoice Date' ");
+        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Invoice Date");
+        //adminInvoicesPage.sleepInSecond(2);
 
-        log.info("Sort_Invoice - Step 07: Verify Invoice Date sort by Ascending");
-        Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Invoice Date"));
+        //log.info("Sort_Invoice - Step 07: Verify Invoice Date sort by Ascending");
+        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Invoice Date"));
+
+        //log.info("Sort_Invoice - Step 06: Sort Invoices ascending by click column 'Order Date' ");
+        //adminInvoicesPage.sortTableByClickToHeaderColumnName("Order Date");
+        //adminInvoicesPage.sleepInSecond(2);
+
+        //log.info("Sort_Invoice - Step 07: Verify Order Date sort by Ascending");
+        //Assert.assertTrue(adminInvoicesPage.isInvoicesSortAscendingByColumnName("Order Date"));
+    }
+
+    //@Test
+    public void Admin_Manage_07_Pagination_Orders() {
+        log.info("Pagination_Orders - Step 01: Open LiveGuru99 admin site");
+        userHomePage.openPageUrl(driver, adminUrl);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+
+        log.info("Pagination_Orders - Step 02: Login admin system");
+        adminManageCustomerPage = adminLoginPage.adminLoginToSystem(adminUserName, adminPassword);
+
+        log.info("Pagination_Orders - Step 03: Close message popup");
+        adminManageCustomerPage.clickToCloseButtonAtMessagePopup();
+
+        log.info("Pagination_Orders - Step 04: Hover to header Sales menu link");
+        adminManageCustomerPage.hoverMouseToHeaderLinkByTextAtAdminPage(driver, "Sales");
+
+        log.info("Printed_Invoice - Step 05: Click to header Orders menu link");
+        adminOrdersPage = (AdminOrdersPageObject) adminManageCustomerPage.clickToHeaderLinkByTextAtAdminPage(driver, "Orders");
+
+        log.info("Printed_Invoice - Step 06: Select number item in Pagination dropdown with value = 20");
+        adminOrdersPage.selectItemInPaginationDropdown("20");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Printed_Invoice - Step 07: Verify table displayed matching with number item selected = 20");
+        Assert.assertEquals(adminOrdersPage.getRowInTable(), 20);
+
+        log.info("Printed_Invoice - Step 06: Select number item in Pagination dropdown with value = 30");
+        adminOrdersPage.selectItemInPaginationDropdown("30");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Printed_Invoice - Step 07: Verify table displayed matching with number item selected = 30");
+        Assert.assertEquals(adminOrdersPage.getRowInTable(), 30);
+
+        log.info("Printed_Invoice - Step 06: Select number item in Pagination dropdown with value = 50");
+        adminOrdersPage.selectItemInPaginationDropdown("50");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Printed_Invoice - Step 07: Verify table displayed matching with number item selected = 50");
+        Assert.assertEquals(adminOrdersPage.getRowInTable(), 50);
+
+        log.info("Printed_Invoice - Step 06: Select number item in Pagination dropdown with value = 100");
+        adminOrdersPage.selectItemInPaginationDropdown("100");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Printed_Invoice - Step 07: Verify table displayed matching with number item selected = 100");
+        Assert.assertEquals(adminOrdersPage.getRowInTable(), 100);
+
+        log.info("Printed_Invoice - Step 06: Select number item in Pagination dropdown with value = 200");
+        adminOrdersPage.selectItemInPaginationDropdown("200");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Printed_Invoice - Step 07: Verify table displayed matching with number item selected = 200");
+        Assert.assertEquals(adminOrdersPage.getRowInTable(), 200);
+    }
+
+    //@Test
+    public void Admin_Manage_08_Search_Customers() {
+        log.info("Search_Customers - Step 01: Open LiveGuru99 admin site");
+        userHomePage.openPageUrl(driver, adminUrl);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+
+        log.info("Search_Customers - Step 02: Login admin system");
+        adminManageCustomerPage = adminLoginPage.adminLoginToSystem(adminUserName, adminPassword);
+
+        log.info("Search_Customers - Step 03: Close message popup");
+        adminManageCustomerPage.clickToCloseButtonAtMessagePopup();
+
+        log.info("Search_Customers - Step 04: Enter data search customer at textbox by column name: ID");
+        adminManageCustomerPage.sendkeyToSearchTextboxByName("name", "basma hassan");
+
+        log.info("Search_Customers - Step 05: Click to Search button");
+        adminManageCustomerPage.clickToButtonByTitle("Search");
+        adminManageCustomerPage.sleepInSecond(2);
+
+        log.info("Search_Customers - Step 06: Verify table displayed matching with data search by column: Name");
+        Assert.assertTrue(adminManageCustomerPage.isTableDisplayedMatchingWithDataSearchByColumn("Name", "basma hassan"));
+    }
+
+    @Test
+    public void Admin_Manage_09_Select_Checkbox_Orders() {
+        log.info("Select_Checkbox_Orders - Step 01: Open LiveGuru99 admin site");
+        userHomePage.openPageUrl(driver, adminUrl);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+
+        log.info("Select_Checkbox_Orders - Step 02: Login admin system");
+        adminManageCustomerPage = adminLoginPage.adminLoginToSystem(adminUserName, adminPassword);
+
+        log.info("Select_Checkbox_Orders - Step 03: Close message popup");
+        adminManageCustomerPage.clickToCloseButtonAtMessagePopup();
+
+        log.info("Select_Checkbox_Orders - Step 04: Hover to header Sales menu link");
+        adminManageCustomerPage.hoverMouseToHeaderLinkByTextAtAdminPage(driver, "Sales");
+
+        log.info("Select_Checkbox_Orders - Step 05: Click to header Orders menu link");
+        adminOrdersPage = (AdminOrdersPageObject) adminManageCustomerPage.clickToHeaderLinkByTextAtAdminPage(driver, "Orders");
+
+        log.info("Select_Checkbox_Orders - Step 06: Click to Select Visible link");
+        adminOrdersPage.clickToLinkByText("Select Visible");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Select_Checkbox_Orders - Step 07: Verify all checkboxes is selected in table");
+        Assert.assertTrue(adminOrdersPage.isAllCheckboxesSelectedInTableDisplayed());
+
+        log.info("Select_Checkbox_Orders - Step 08: Click to Unselect Visible link");
+        adminOrdersPage.clickToLinkByText("Unselect Visible");
+        adminOrdersPage.sleepInSecond(2);
+
+        log.info("Select_Checkbox_Orders - Step 09: Verify all checkboxes is unselected in table");
+        Assert.assertTrue(adminOrdersPage.isAllCheckboxesUnselectedInTableDisplayed());
     }
 
     @AfterClass(alwaysRun = true)
     public void afterClass(){
-        //closeBrowserAndDriver();
+        closeBrowserAndDriver();
     }
     private String userUrl, adminUrl;
     private WebDriver driver;

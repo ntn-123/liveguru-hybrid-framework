@@ -2,7 +2,11 @@ package pageObjectsAdmin;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pageUIsAdmin.AdminManageCustomerPageUI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminManageCustomerPageObject extends BasePage {
     private WebDriver driver;
@@ -63,4 +67,22 @@ public class AdminManageCustomerPageObject extends BasePage {
         return getElementText(driver, AdminManageCustomerPageUI.NO_RECORDS_FOUND_MESSAGE);
     }
 
+    public boolean isTableDisplayedMatchingWithDataSearchByColumn(String columnName, String dataSearch) {
+        int columnIndex = getElementsSize(driver, AdminManageCustomerPageUI.COLUMN_INDEX_BY_COLUMN_NAME, columnName) + 1;
+        waitForAllElementsVisible(driver, AdminManageCustomerPageUI.ROW_VALUE_BY_COLUMN_INDEX, String.valueOf(columnIndex));
+        List<WebElement> allRowByColumn = getListWebElement(driver, AdminManageCustomerPageUI.ROW_VALUE_BY_COLUMN_INDEX, String.valueOf(columnIndex));
+        ArrayList<String> allRowValueByColumn = new ArrayList<>();
+        for (WebElement row : allRowByColumn){
+            allRowValueByColumn.add(row.getText());
+        }
+        if(columnName == "ID"){
+            return allRowValueByColumn.contains(dataSearch);
+        } else {
+            for (int i = 0; i < allRowValueByColumn.size(); i++){
+                if (allRowValueByColumn.get(i).trim().equals(dataSearch)) return true;
+            }
+            return false;
+        }
+
+    }
 }

@@ -498,7 +498,7 @@ public class AdminManage extends BaseTest {
         Assert.assertEquals(adminOrdersPage.getRowInTable(), 200);
     }
 
-    //@Test
+    @Test
     public void Admin_Manage_08_Search_Customers() {
         log.info("Search_Customers - Step 01: Open LiveGuru99 admin site");
         userHomePage.openPageUrl(driver, adminUrl);
@@ -511,6 +511,16 @@ public class AdminManage extends BaseTest {
         adminManageCustomerPage.clickToCloseButtonAtMessagePopup();
 
         log.info("Search_Customers - Step 04: Enter data search customer at textbox by column name: ID");
+        adminManageCustomerPage.sendkeyToSearchTextboxByName("entity_id[from]", "74490");
+
+        log.info("Search_Customers - Step 05: Click to Search button");
+        adminManageCustomerPage.clickToButtonByTitle("Search");
+        adminManageCustomerPage.sleepInSecond(2);
+
+        log.info("Search_Customers - Step 06: Verify table displayed matching with data search by column: Name");
+        Assert.assertTrue(adminManageCustomerPage.isTableDisplayedMatchingWithDataSearchByColumn("ID", "74490", "entity_id[from]"));
+
+        log.info("Search_Customers - Step 04: Enter data search customer at textbox by column name: Name");
         adminManageCustomerPage.sendkeyToSearchTextboxByName("name", "basma hassan");
 
         log.info("Search_Customers - Step 05: Click to Search button");
@@ -518,10 +528,10 @@ public class AdminManage extends BaseTest {
         adminManageCustomerPage.sleepInSecond(2);
 
         log.info("Search_Customers - Step 06: Verify table displayed matching with data search by column: Name");
-        Assert.assertTrue(adminManageCustomerPage.isTableDisplayedMatchingWithDataSearchByColumn("Name", "basma hassan"));
+        Assert.assertTrue(adminManageCustomerPage.isTableDisplayedMatchingWithDataSearchByColumn("Name", "basma hassan", "name"));
     }
 
-    @Test
+    //@Test
     public void Admin_Manage_09_Select_Checkbox_Orders() {
         log.info("Select_Checkbox_Orders - Step 01: Open LiveGuru99 admin site");
         userHomePage.openPageUrl(driver, adminUrl);

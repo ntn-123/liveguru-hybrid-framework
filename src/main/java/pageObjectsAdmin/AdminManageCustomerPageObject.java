@@ -1,6 +1,7 @@
 package pageObjectsAdmin;
 
 import commons.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pageUIsAdmin.AdminManageCustomerPageUI;
@@ -67,7 +68,7 @@ public class AdminManageCustomerPageObject extends BasePage {
         return getElementText(driver, AdminManageCustomerPageUI.NO_RECORDS_FOUND_MESSAGE);
     }
 
-    public boolean isTableDisplayedMatchingWithDataSearchByColumn(String columnName, String dataSearch) {
+    public boolean isTableDisplayedMatchingWithDataSearchByColumn(String columnName, String dataSearch, String textboxName) {
         int columnIndex = getElementsSize(driver, AdminManageCustomerPageUI.COLUMN_INDEX_BY_COLUMN_NAME, columnName) + 1;
         waitForAllElementsVisible(driver, AdminManageCustomerPageUI.ROW_VALUE_BY_COLUMN_INDEX, String.valueOf(columnIndex));
         List<WebElement> allRowByColumn = getListWebElement(driver, AdminManageCustomerPageUI.ROW_VALUE_BY_COLUMN_INDEX, String.valueOf(columnIndex));
@@ -76,7 +77,17 @@ public class AdminManageCustomerPageObject extends BasePage {
             allRowValueByColumn.add(row.getText());
         }
         if(columnName == "ID"){
-            return allRowValueByColumn.contains(dataSearch);
+            if (textboxName == "entity_id[from]"){
+                for (int i = 0; i < allRowValueByColumn.size(); i++){
+                    if (Integer.parseInt(allRowValueByColumn.get(i).trim()) <= Integer.parseInt(dataSearch)) return true;
+                }
+            } else if (textboxName == "entity_id[to]"){
+                for (int i = 0; i < allRowValueByColumn.size(); i++){
+                    if (Integer.parseInt(allRowValueByColumn.get(i).trim()) >= Integer.parseInt(dataSearch)) return true;
+                }
+            }
+            return false;
+
         } else {
             for (int i = 0; i < allRowValueByColumn.size(); i++){
                 if (allRowValueByColumn.get(i).trim().equals(dataSearch)) return true;

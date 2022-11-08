@@ -408,25 +408,6 @@ public class UserManage extends BaseTest {
         Assert.assertTrue(userCheckoutOnepagePage.isOrderIdDisplayed());
     }
 
-    //@Test
-    public void User_10_Advanced_Search() {
-        log.info("Advanced_Search - Step 01: Open LiveGuru99 site");
-        userHomePage.openPageUrl(driver, homePageUrl);
-        userHomePage = PageGeneratorManager.getUserHomePage(driver);
-
-        log.info("Advanced_Search - Step 02: Click to footer Advanced search link");
-        userCatalogAdvancedSearchPage = (UserCatalogAdvancedSearchPageObject) userHomePage.clickToFooterMenuLinkByText(driver, "Advanced Search");
-
-        log.info("Advanced_Search - Step 03: Enter to Price text box with range 0 - 150");
-        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price", "0");
-        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price_to", "140");
-
-        log.info("Advanced_Search - Step 04: Click to Search button");
-        userAdvanceSearchResultPage = userCatalogAdvancedSearchPage.clickToSearchButton();
-
-        log.info("Advanced_Search - Step 05: Verify Product name and Price in the result");
-
-    }
 
     @AfterClass(alwaysRun = true)
     public void afterClass(){

@@ -411,7 +411,7 @@ public class UserManage extends BaseTest {
 
     @AfterClass(alwaysRun = true)
     public void afterClass(){
-        //closeBrowserAndDriver();
+        closeBrowserAndDriver();
     }
     private WebDriver driver;
     private UserHomePageObject userHomePage;

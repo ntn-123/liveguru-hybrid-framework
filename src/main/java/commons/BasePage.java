@@ -497,9 +497,6 @@ public class BasePage {
         explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
     }
 
-    /*
-     * Wait for element undisplayed in DOM or not in DOM and override implicit timeout
-     */
     public void waitForElementUndisplayed(WebDriver driver, String locatorType) {
         WebDriverWait explicitWait = new WebDriverWait(driver, shortTimeout);
         overrideImplicitTimeout(driver, shortTimeout);
@@ -627,7 +624,6 @@ public class BasePage {
         File[] dirContents = dir.listFiles();
         for (int i = 0; i < dirContents.length; i++){
             if (dirContents[i].getName().contains(fileName)){
-                // File has been found, it can now be deteled
                 dirContents[i].delete();
                 return true;
             }

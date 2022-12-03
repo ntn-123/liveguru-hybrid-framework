@@ -16,6 +16,11 @@ public class UserMyDashboardPageObject extends BasePage {
         return getElementText(driver, UserMyDashboardPageUI.SUCCESS_MESSAGE);
     }
 
+    public boolean isSuccessMessageDisplayed(){
+        waitForElementVisible(driver, UserMyDashboardPageUI.SUCCESS_MESSAGE);
+        return isElementDisplayed(driver, UserMyDashboardPageUI.SUCCESS_MESSAGE);
+    }
+
     public String getMyDashboardTitle() {
         waitForElementVisible(driver, UserMyDashboardPageUI.MY_DASHBOARD_TITLE);
         return getElementText(driver, UserMyDashboardPageUI.MY_DASHBOARD_TITLE);

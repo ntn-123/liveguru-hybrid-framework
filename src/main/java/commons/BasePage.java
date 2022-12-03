@@ -583,7 +583,7 @@ public class BasePage {
         waitForElementClickable(driver, BasePageUI.FOOTER_MENU_LINK_BY_TEXT, menuText);
         clickToElement(driver, BasePageUI.FOOTER_MENU_LINK_BY_TEXT, menuText);
         switch (menuText){
-            case "Account Information":
+            case "Advanced Search":
                 return PageGeneratorManager.getUserCatalogAdvancedSearchPage(driver);
 
             default:

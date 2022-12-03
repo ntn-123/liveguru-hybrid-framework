@@ -16,7 +16,7 @@
             <test name="Run test on Chrome">
                 <parameter name="browser" value="CHROME"/>
                 <classes>
-                      <class name="liveguruUser.AdminManage"/>
+                      <class name="liveguruUser.UserManage"/>
                 </classes>
               </test>
 

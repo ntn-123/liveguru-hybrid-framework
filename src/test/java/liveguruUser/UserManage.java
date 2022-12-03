@@ -46,7 +46,7 @@ public class UserManage extends BaseTest {
 
     }
 
-    @Test
+    //@Test
     public void User_01_Register(){
         log.info("Register - Step 01: Click to Account link");
         userHomePage.clickToHearderAccountLink(driver);
@@ -90,7 +90,7 @@ public class UserManage extends BaseTest {
         userHomePage = userAccountInformationPage.clickToHearderAccountLogoutLink(driver);
     }
 
-    @Test
+    //@Test
     public void User_02_Login(){
         log.info("Login - Step 01: Click to hearder Account link");
         userHomePage.clickToHearderAccountLink(driver);
@@ -105,7 +105,7 @@ public class UserManage extends BaseTest {
         Assert.assertEquals(userMyDashboardPage.getMyDashboardTitle(), "MY DASHBOARD");
         Assert.assertEquals(userMyDashboardPage.getAccountNameText(), "Hello, " + firstName + " " + lastName + "!");
     }
-    @Test
+    //@Test
     public void User_03_Cost_Of_Product(){
         log.info("Cost - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, homePageUrl);
@@ -153,7 +153,7 @@ public class UserManage extends BaseTest {
         Assert.assertEquals(userCheckoutCartPage.getGrandTotalPrice(), "$95.00");
     }
 
-    @Test
+    //@Test
     public void User_05_Add_More_Products(){
         log.info("Add - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, homePageUrl);
@@ -190,7 +190,7 @@ public class UserManage extends BaseTest {
         Assert.assertTrue(userCheckoutCartPage.isCartEmptyContentMessageDisplayed("You have no items in your shopping cart."));
     }
 
-    @Test
+    //@Test
     public void User_06_Compare(){
         log.info("Compare - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, homePageUrl);
@@ -244,7 +244,7 @@ public class UserManage extends BaseTest {
         
     }
 
-    @Test
+    //@Test
     public void User_07_Wishlist() {
         log.info("Wishlist - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, homePageUrl);
@@ -279,7 +279,7 @@ public class UserManage extends BaseTest {
         Assert.assertEquals(userMyWishlistPage.getWishlistItemName(), "LG LCD");
     }
 
-    @Test
+    //@Test
     public void User_08_Add_Your_Review(){
         log.info("Review - Step 01: Open LiveGuru99 site");
         userHomePage.openPageUrl(driver, homePageUrl);
@@ -408,6 +408,38 @@ public class UserManage extends BaseTest {
         Assert.assertTrue(userCheckoutOnepagePage.isOrderIdDisplayed());
     }
 
+    @Test
+    public void User_10_Advance_Search(){
+        log.info("Advance_Search - Step 01: Open LiveGuru99 site");
+        userHomePage.openPageUrl(driver, homePageUrl);
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+
+        log.info("Advance_Search - Step 02: Click to Advanced search link at footer page");
+        userCatalogAdvancedSearchPage = (UserCatalogAdvancedSearchPageObject) userHomePage.clickToFooterMenuLinkByText(driver, "Advanced Search");
+
+        log.info("Advance_Search - Step 03: Input to Price textbox");
+        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price", "100");
+        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price_to", "140");
+
+        log.info("Advance_Search - Step 04: Click to Search button");
+        userAdvanceSearchResultPage = userCatalogAdvancedSearchPage.clickToSearchButton();
+
+        log.info("Advance_Search - Step 05: Verify price of items is fetched with data search");
+        Assert.assertTrue(userAdvanceSearchResultPage.isPriceOfItemsFetchedWithDataSearch("100", "140"));
+
+        log.info("Advance_Search - Step 06: Click to Advanced search link at footer page");
+        userCatalogAdvancedSearchPage = (UserCatalogAdvancedSearchPageObject) userAdvanceSearchResultPage.clickToFooterMenuLinkByText(driver, "Advanced Search");
+
+        log.info("Advance_Search - Step 07: Input to Price textbox");
+        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price", "141");
+        userCatalogAdvancedSearchPage.sendkeyToTextBoxByID("price_to", "1000");
+
+        log.info("Advance_Search - Step 08: Click to Search button");
+        userAdvanceSearchResultPage = userCatalogAdvancedSearchPage.clickToSearchButton();
+
+        log.info("Advance_Search - Step 09: Verify price of items is fetched with data search");
+        Assert.assertTrue(userAdvanceSearchResultPage.isPriceOfItemsFetchedWithDataSearch("141", "1000"));
+    }
 
     @AfterClass(alwaysRun = true)
     public void afterClass(){

@@ -16,7 +16,7 @@
             <test name="Run test on Chrome">
                 <parameter name="browser" value="CHROME"/>
                 <classes>
-                      <class name="liveguruUser.UserManage"/>
+                      <class name="liveguruUser.RegisterUserReadExcel"/>
                 </classes>
               </test>
 

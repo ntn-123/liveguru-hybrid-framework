@@ -23,7 +23,7 @@ public class RegisterUserReadExcel extends BaseTest {
         ExcelUtil.setExcelFileSheet("Sheet1");
         firstName = ExcelUtil.getCellData(2,0);
         lastName = ExcelUtil.getCellData(2,1);
-        emailAddress = ExcelUtil.getCellData(2,2);
+        emailAddress = "sa" + getRandomNumber() + "@hotmail.net";
         password = ExcelUtil.getCellData(2,3);
     }
 
